@@ -20,6 +20,7 @@ export default {
             });
             return Cards.findOne(cardId);
         },
+
         deleteCard(obj, { _id }, context) {
             const cardId = Cards.remove({
                 _id

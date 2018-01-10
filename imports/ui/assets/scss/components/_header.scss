@@ -1,3 +1,8 @@
+.navbar {
+    padding: 0.5rem 100px;
+    border-bottom: $border;
+}
+
 .popover-menu {
     position: relative;
     display: inline-block;
@@ -17,6 +22,14 @@
     border: none;
     padding: 0;
     margin: 0;
+
+    &:focus {
+        outline: none;
+
+        .btn-circular {
+            box-shadow: 0 0 0 3px #99c6f3;
+        }
+    }
 }
 
 .btn-circular {
@@ -78,7 +91,8 @@
     font-weight: 400;
     min-width: 160px;
     background-color: #fff;
-    box-shadow: 0 0 0 1px rgba(99, 114, 130, 0.16), 0 8px 16px rgba(27, 39, 51, 0.08);
+    box-shadow: 0 0 0 1px rgba(99, 114, 130, 0.16),
+        0 8px 16px rgba(27, 39, 51, 0.08);
     border-radius: 4px;
     outline: none;
 }

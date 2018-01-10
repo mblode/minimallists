@@ -2,22 +2,22 @@ import React, { Component } from "react";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 
-const updateCard = gql`
-    mutation updateCard($name: String!, $_id: String!) {
-        updateCard(name: $name, _id: $_id) {
-            name
+const toggleCompleted = gql`
+    mutation toggleCompleted($completed: Boolean, $_id: String!) {
+        toggleCompleted(completed: $completed, _id: $_id) {
+            completed
             _id
         }
     }
 `;
 
 class CardChecked extends Component {
-    updateName = () => {
+    toggleCompleted = e => {
         this.props
-            .updateCard({
+            .toggleCompleted({
                 variables: {
-                    name: this.name.value,
-                    _id: this.props.card._id
+                    _id: this.props.card._id,
+                    completed: this.completed
                 }
             })
             .then(({ data }) => {
@@ -33,11 +33,14 @@ class CardChecked extends Component {
             <input
                 className="card-item-check"
                 type="checkbox"
+                ref={input => (this.completed = input)}
                 checked={this.props.card.completed}
-                onChange={this.complete}
+                onChange={this.toggleCompleted()}
             />
         );
     }
 }
 
-export default graphql(updateCard, { name: "updateCard" })(CardChecked);
+export default graphql(toggleCompleted, { name: "toggleCompleted" })(
+    CardChecked
+);

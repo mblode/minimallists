@@ -12,7 +12,7 @@ import ChecklistResolvers from "../../api/checklists/resolvers";
 import LabelResolvers from "../../api/labels/resolvers";
 import ListResolvers from "../../api/lists/resolvers";
 
-// hel
+// helll
 const testSchema = `
 type Query {
     cards: [Card]

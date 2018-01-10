@@ -21,12 +21,7 @@ type Card {
 
 type Mutation {
     createCard(name: String!): Card
-    updateCard(
-        _id: String!
-        name: String!
-        completed: Boolean
-        archived: Boolean
-    ): Card
+    updateCard(_id: String!, name: String!): Card
     deleteCard(_id: String!): Card
 
     addChecklistToCard(_id: String!): Card

@@ -3,48 +3,40 @@ import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 import onClickOutside from "react-onclickoutside";
 import { SortableElement } from "react-sortable-hoc";
+import { observer } from "mobx-react";
+
+import CurrentStore from "../../stores/CurrentStore";
+
 import CardMore from "./CardMore";
 import CardInput from "./CardInput";
 import CardChecked from "./CardChecked";
 
+@observer
 class Card extends Component {
     constructor(props) {
         super(props);
 
         this.openCard = this.openCard.bind(this);
         this.clickCard = this.clickCard.bind(this);
-        this.state = {
-            currentCard: "",
-            currentActive: "",
-            currentActive: "close"
-        };
     }
 
     handleClickOutside = () => {
-        this.setState({
-            active: "close",
-            currentCard: "",
-            currentActive: "close"
-        });
+        this.props.card.active = "close";
+        CurrentStore.currentCard("");
+        CurrentStore.currentActive("close");
     };
 
     openCard = () => {
-        this.state.active = "open";
-        this.setState({
-            active: "open",
-            currentCard: this.props.card,
-            currentActive: "open"
-        });
+        this.props.card.active = "open";
+        CurrentStore.currentCard(this.props.card);
+        CurrentStore.currentActive("open");
     };
 
     clickCard = () => {
-        if (this.state.active === "close") {
-            this.state.active = "click";
-            this.setState({
-                active: "click",
-                currentCard: this.props.card,
-                currentActive: "click"
-            });
+        if (this.props.card.active === "close") {
+            this.props.card.active = "click";
+            CurrentStore.currentCard(this.props.card);
+            CurrentStore.currentActive("click");
         }
     };
 
@@ -53,12 +45,12 @@ class Card extends Component {
 
         let cardMore = null;
         let cardClass = " ";
-        if (this.state.active === "open") {
-            cardMore = <CardMore refetch={this.props.refetch} card={card} />;
-            cardClass = "card-item-open";
-        } else if (this.state.active === "click") {
+        if (this.props.card.active === "open") {
+            cardMore = <CardMore card={this.props.card} />;
+            cardClass = "card-open";
+        } else if (this.props.card.active === "click") {
             cardMore = null;
-            cardClass = "card-item-click";
+            cardClass = "card-click";
         }
 
         return (
@@ -67,7 +59,7 @@ class Card extends Component {
                 onDoubleClick={() => this.openCard()}
                 onClick={() => this.clickCard()}
             >
-                <div className={`card-item-main ${this.props.card.complete}`}>
+                <div className="card-item-main">
                     <CardChecked refetch={this.props.refetch} card={card} />
                     <CardInput refetch={this.props.refetch} card={card} />
 

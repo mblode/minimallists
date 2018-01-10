@@ -14,7 +14,7 @@ class Area extends Component {
         return (
             <div>
                 <div className="page">
-                    <div className="project-title-group">
+                    <div className="project-title-group area-title-group">
                         <Icon name="package" color="#212529" />
 
                         <input

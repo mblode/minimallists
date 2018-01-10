@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import Textarea from "../Base/ExpandingTextarea";
-import ChecklistSortable from "./ChecklistSortable";
+import ChecklistSortable from "../Checklist/ChecklistSortable";
 import When from "./When";
 import Labels from "./Labels";
 import NewChecklist from "./NewChecklist";

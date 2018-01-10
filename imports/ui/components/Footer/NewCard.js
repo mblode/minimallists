@@ -12,6 +12,11 @@ const createCard = gql`
 `;
 
 class NewCard extends Component {
+    constructor(props) {
+        super(props);
+        this.currentCard = this.currentCard.bind(this);
+    }
+
     newCard = () => {
         this.props
             .createCard({
@@ -21,10 +26,19 @@ class NewCard extends Component {
             })
             .then(({ data }) => {
                 this.props.refetch();
+                this.currentCard(card.id);
             })
             .catch(error => {
                 console.log(error);
             });
+    };
+
+    currentCard = id => {
+        // let val = CardStore.cards.filter(card => {
+        //     return card.id === id;
+        // });
+        // this.props.currentStore.currentCard(val[0]);
+        this.props.currentStore.currentActive("open");
     };
 
     render() {

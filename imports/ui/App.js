@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
+import { observer } from "mobx-react";
+
+import CurrentStore from "./stores/CurrentStore";
 
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
@@ -16,8 +19,22 @@ import Trash from "./pages/Trash";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 
+@observer
 class App extends Component {
+    componentDidMount() {
+        document.body.classList.toggle("open", false);
+    }
+
+    componentWillUnMount() {
+        document.body.classList.remove("closed");
+    }
+
     render() {
+        if (CurrentStore.cur.active === "open") {
+            document.body.classList.toggle("open", true);
+        } else {
+            document.body.classList.toggle("open", false);
+        }
         return (
             <div>
                 <BrowserRouter>

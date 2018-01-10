@@ -20,14 +20,15 @@ class ProjectItem extends Component {
                         />
                     </div>
                     <span className="list-length">
-                        {
+                        {/* {
                             this.props.cardStore.cards.filter(
                                 card =>
                                     card.project === this.props.project.id &&
                                     !card.completed &&
                                     !card.archived
                             ).length
-                        }
+                        } */}
+                        1
                     </span>
                 </NavLink>
             </li>

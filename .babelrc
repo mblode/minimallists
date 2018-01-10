@@ -1,3 +1,8 @@
 {
-    "plugins": ["babel-plugin-inline-import"]
+    "presets": ["react-native-stage-0/decorator-support"],
+    "plugins": [
+        "babel-plugin-transform-decorators-legacy",
+        "transform-class-properties",
+        "babel-plugin-inline-import"
+    ]
 }
