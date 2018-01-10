@@ -1,0 +1,212 @@
+body {
+    transition: background-color 0.2s ease-in-out;
+}
+
+.cont {
+    z-index: -1000;
+    height: 100%;
+}
+
+.menu {
+    list-style-type: none !important;
+    margin: 0;
+    padding: 0;
+}
+
+.menu li {
+    display: inline-block;
+    margin: 0;
+    margin-right: 24px;
+}
+
+.menu li a {
+    display: block;
+}
+
+.nav-cont {
+    background: #f7f9fa;
+}
+
+.nav-cont .row {
+    margin-top: 0;
+}
+
+.nav-cont,
+.cont {
+    padding: 0;
+}
+
+.page-main {
+    position: relative;
+}
+
+.page {
+    margin: 100px;
+}
+
+.list-title {
+    margin-bottom: 4rem;
+    margin-left: 1rem;
+}
+
+.list-subtitle {
+    margin: 2rem 1rem;
+    border-bottom: $border;
+    padding-bottom: 0.5rem;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.card-form {
+    border-radius: 4px;
+    background: transparent;
+    box-shadow: $box-shadow-1;
+    padding: 1rem;
+    position: relative;
+    margin-bottom: 0.5rem;
+}
+
+.card-form-status {
+    display: block;
+    padding-left: 24px;
+    margin-top: 1rem;
+}
+
+.card-item {
+    border-radius: 4px;
+    background: transparent;
+    padding: 0.25rem 1rem;
+    // transition: 0.25s ease-in-out;
+}
+
+.card-item-check {
+    margin-right: 0.5rem;
+    top: -1px;
+    position: relative;
+}
+
+.card-item-click {
+    transition: 0s;
+    background: #d2e3fd;
+}
+
+.card-item-open {
+    box-shadow: $box-shadow-1;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: white;
+}
+
+.card-item-input {
+    background: transparent;
+    outline: none;
+    caret-color: #07c;
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: calc(100% - 2rem);
+}
+
+.card-item-notes {
+    background: transparent;
+    display: block;
+    width: calc(100% - 3rem);
+    caret-color: #07c;
+    border: none;
+    margin: 0.5rem 1.45rem;
+    padding: 0;
+    outline: 0;
+    resize: none;
+}
+
+.card-item-more {
+    margin-top: 1rem;
+}
+
+.project-title-group {
+    margin-left: 1rem;
+    display: flex;
+    align-items: center;
+
+    svg {
+        margin-right: 0.5rem;
+    }
+}
+
+.project-title {
+    font-weight: 500;
+    line-height: 1.1;
+    border: none;
+    outline: none;
+    caret-color: #07c;
+    font-size: 1.75rem;
+    background: transparent;
+}
+
+.project-label {
+    font-size: 12px;
+    color: $secondary;
+    display: block;
+    margin-left: 1.45rem;
+    position: relative;
+    top: -0.3rem;
+}
+
+.card-input-project {
+    position: relative;
+    top: 0.3rem;
+}
+
+.project-notes {
+    background: transparent;
+    display: block;
+    width: calc(100% - 3rem);
+    caret-color: #07c;
+    border: none;
+    margin: 1rem 1rem;
+    padding: 0;
+    outline: 0;
+    resize: none;
+}
+
+.modal-dialog {
+    box-shadow: 0 10px 16px rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+}
+
+.nav-svg {
+    width: 16px;
+    margin-right: 8px;
+}
+
+.big-svg {
+    width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    opacity: 0.1;
+}
+
+.title-svg {
+    margin-right: 8px;
+    height: 1.75rem;
+    position: relative;
+    top: -3px;
+}
+
+.project-svg {
+    margin-right: 8px;
+    height: 1.75rem;
+    position: relative;
+    top: -6px;
+}
+
+.project-label {
+    font-size: 12px;
+    color: $secondary;
+    display: block;
+    margin-left: 1.45rem;
+    position: relative;
+    top: -0.3rem;
+}

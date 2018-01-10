@@ -1,0 +1,36 @@
+type Card {
+    _id: String!
+    archived: Boolean
+    checkItemStates: [String]
+    completed: Boolean
+    createdAt: String
+    dateLastActivity: String
+    due: String
+    dueComplete: Boolean
+    # idBoard: Boards
+    idChecklists: [Checklist]
+    idLabels: [Label]
+    idList: List
+    # idMembers: [Members]
+    labels: [String]
+    name: String!
+    notes: String
+    pos: Float
+    url: String @isUnique
+}
+
+type Mutation {
+    createCard(name: String!): Card
+    updateCard(
+        _id: String!
+        name: String!
+        completed: Boolean
+        archived: Boolean
+    ): Card
+    deleteCard(_id: String!): Card
+
+    addChecklistToCard(_id: String!): Card
+    addLabelToCard(_id: String!): Card
+    removeChecklistFromCard(_id: String!): Card
+    removeLabelFromCard(_id: String!): Card
+}

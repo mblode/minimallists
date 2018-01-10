@@ -1,0 +1,15 @@
+@charset "utf-8";
+
+@import "{}/imports/ui/assets/scss/vendor/_fonts.scss";
+@import "{}/imports/ui/assets/scss/vendor/_custom.scss";
+@import "{}/node_modules/bootstrap/scss/bootstrap";
+
+// Setup
+@import "{}/imports/ui/assets/scss/base/_vars.scss"; // Global Variables
+@import "{}/imports/ui/assets/scss/base/_base.scss"; // Body
+
+// Plugins
+@import "{}/imports/ui/assets/scss/components/_header.scss";
+@import "{}/imports/ui/assets/scss/components/_footer.scss";
+@import "{}/imports/ui/assets/scss/components/_sidebar.scss";
+@import "{}/imports/ui/assets/scss/components/_card.scss";

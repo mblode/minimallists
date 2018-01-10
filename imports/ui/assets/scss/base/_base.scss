@@ -1,0 +1,36 @@
+.bd-content {
+    -webkit-box-ordinal-group: 2;
+    -ms-flex-order: 1;
+    order: 1;
+}
+
+svg {
+    vertical-align: middle;
+}
+
+.no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+
+    > .col,
+    > [class*="col-"] {
+        padding-right: 0;
+        padding-left: 0;
+    }
+}
+
+::-webkit-input-placeholder {
+    color: $input-placeholder-color;
+}
+
+::-moz-placeholder {
+    color: $input-placeholder-color;
+}
+
+:-ms-input-placeholder {
+    color: $input-placeholder-color;
+}
+
+:-moz-placeholder {
+    color: $input-placeholder-color;
+}

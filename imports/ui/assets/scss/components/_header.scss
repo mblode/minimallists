@@ -1,0 +1,157 @@
+.popover-menu {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #1b2733;
+}
+
+.popover-active .popover-content {
+    display: flex;
+    visibility: visible;
+}
+
+.popover-trigger {
+    outline: none;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.btn-circular {
+    padding: 0;
+    border: none;
+    background: none;
+    border-radius: 50%;
+}
+
+.btn .btn-content {
+    position: relative;
+}
+
+.avatar {
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 50%;
+    overflow: hidden;
+    outline: 0;
+    height: 40px;
+    width: 40px;
+}
+
+.avatar-image {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.popover-content-position-below {
+    top: 100%;
+    margin-top: 8px;
+}
+
+.popover-content-attach-right {
+    right: 0;
+    left: auto;
+    margin-right: -8px;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+}
+
+.popover-content {
+    position: absolute;
+    box-sizing: inherit;
+    display: none;
+    visibility: hidden;
+    width: 344px;
+    z-index: 1;
+}
+
+.popover-content-menu {
+    padding: 0;
+    display: inline-block;
+    box-sizing: inherit;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 400;
+    min-width: 160px;
+    background-color: #fff;
+    box-shadow: 0 0 0 1px rgba(99, 114, 130, 0.16), 0 8px 16px rgba(27, 39, 51, 0.08);
+    border-radius: 4px;
+    outline: none;
+}
+
+.popover-content-scroller {
+    box-sizing: inherit;
+    display: block;
+    overflow: auto;
+}
+
+.account-menu-user-summary {
+    width: 232px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.account-menu-title {
+    width: 100%;
+    box-sizing: inherit;
+    display: flex;
+    align-items: center;
+    margin: 0 0 16px;
+    padding: 16px 16px 0;
+    text-align: left;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 400;
+    cursor: default;
+    outline: none;
+    border: none;
+}
+
+.account-menu-item {
+    width: 100%;
+    box-sizing: inherit;
+    padding: 4px 16px;
+    margin: 16px 0 0 0;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 400;
+    text-align: left;
+    color: inherit;
+    cursor: pointer;
+    outline: none;
+    background-color: transparent;
+    border: none;
+    text-decoration: none;
+    display: block;
+
+    &:hover {
+        text-decoration: none;
+    }
+
+    &:focus {
+        background-color: #f7f9fa;
+        text-decoration: underline;
+    }
+
+    &:hover {
+        background-color: #f7f9fa;
+        text-decoration: none;
+    }
+}
+
+.account-menu-separator {
+    border: none;
+    border-bottom: 1px solid #e6e8eb;
+    margin: 16px 0;
+}
+
+.account-menu-item:last-child {
+    margin-bottom: 16px;
+}
