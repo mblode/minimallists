@@ -12,11 +12,6 @@ const createCard = gql`
 `;
 
 class NewCard extends Component {
-    constructor(props) {
-        super(props);
-        this.currentCard = this.currentCard.bind(this);
-    }
-
     newCard = () => {
         this.props
             .createCard({
@@ -26,31 +21,37 @@ class NewCard extends Component {
             })
             .then(({ data }) => {
                 this.props.refetch();
-                this.currentCard(card.id);
             })
             .catch(error => {
                 console.log(error);
             });
     };
 
-    currentCard = id => {
-        // let val = CardStore.cards.filter(card => {
-        //     return card.id === id;
-        // });
-        // this.props.currentStore.currentCard(val[0]);
-        this.props.currentStore.currentActive("open");
-    };
-
     render() {
-        return (
+        const icon = <Icon name="plus" color="#212529" size="16px" />;
+        let button = (
             <button
                 type="button"
                 className="btn btn-sm footer-button"
                 onClick={() => this.newCard()}
             >
-                <Icon name="plus" color="#212529" size="16px" />
+                {icon}
             </button>
         );
+
+        if (this.props.buttonState === "disabled") {
+            button = (
+                <button
+                    type="button"
+                    className="btn btn-sm footer-button"
+                    disabled
+                >
+                    {icon}
+                </button>
+            );
+        }
+
+        return <span>{button}</span>;
     }
 }
 

@@ -3,18 +3,18 @@ import Icon from "../Base/Icon";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 
-const createList = gql`
-    mutation createList($name: String!) {
-        createList(name: $name) {
+const createArea = gql`
+    mutation createArea($name: String!) {
+        createArea(name: $name) {
             _id
         }
     }
 `;
 
-class NewList extends Component {
-    newList = () => {
+class NewArea extends Component {
+    newArea = () => {
         this.props
-            .createList({
+            .createArea({
                 variables: {
                     name: ""
                 }
@@ -32,14 +32,14 @@ class NewList extends Component {
             <div className="sidebar-footer">
                 <button
                     className="btn btn-sm btn-block sidebar-footer-btn"
-                    onClick={() => this.newList()}
+                    onClick={() => this.newArea()}
                 >
                     <Icon name="plus" color="#212529" size="16px" />
-                    <span> New List</span>
+                    <span> New Area</span>
                 </button>
             </div>
         );
     }
 }
 
-export default graphql(createList, { name: "createList" })(NewList);
+export default graphql(createArea, { name: "createArea" })(NewArea);

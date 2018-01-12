@@ -49,12 +49,6 @@ const cardQuery = gql`
             completed
             notes
         }
-
-        checklists {
-            _id
-            name
-            completed
-        }
     }
 `;
 

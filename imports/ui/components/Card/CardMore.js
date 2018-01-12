@@ -1,13 +1,41 @@
 import React, { Component } from "react";
+import { graphql } from "react-apollo";
+import gql from "graphql-tag";
 
 import Textarea from "../Base/ExpandingTextarea";
-import ChecklistSortable from "../Checklist/ChecklistSortable";
+import ChecklistList from "../Checklist/ChecklistList";
+import AddChecklist from "../Checklist/AddChecklist";
 import When from "./When";
 import Labels from "./Labels";
 import NewChecklist from "./NewChecklist";
 import Deadline from "./Deadline";
 
+const updateCardNotes = gql`
+    mutation updateCardNotes($notes: String, $_id: String!) {
+        updateCardNotes(notes: $notes, _id: $_id) {
+            notes
+            _id
+        }
+    }
+`;
+
 class CardMore extends Component {
+    updateNotes = e => {
+        this.props
+            .updateCardNotes({
+                variables: {
+                    notes: e.target.value,
+                    _id: this.props.card._id
+                }
+            })
+            .then(({ data }) => {
+                this.props.refetch();
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
+
     render() {
         return (
             <div className="card-item-more">
@@ -16,12 +44,17 @@ class CardMore extends Component {
                     maxLength="3000"
                     placeholder="Notes"
                     className="card-item-notes"
+                    onChange={this.updateNotes}
+                    value={this.props.card.notes}
                 />
-
-                <ChecklistSortable />
+                <AddChecklist
+                    card={this.props.card}
+                    refetch={this.props.refetch}
+                />
+                <ChecklistList checklists={this.props.card.checklists} />
 
                 <When />
-                <Labels />
+                {/* <Labels /> */}
                 <NewChecklist />
                 <Deadline />
             </div>
@@ -29,4 +62,4 @@ class CardMore extends Component {
     }
 }
 
-export default CardMore;
+export default graphql(updateCardNotes, { name: "updateCardNotes" })(CardMore);

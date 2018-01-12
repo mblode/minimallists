@@ -97,7 +97,7 @@ body {
 }
 
 .card-item-open {
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: $box-shadow-1;
     margin-top: 2rem;
     margin-bottom: 2rem;
     padding: 1rem;

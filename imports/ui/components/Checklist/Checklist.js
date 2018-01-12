@@ -4,12 +4,10 @@ import { SortableElement, SortableHandle } from "react-sortable-hoc";
 
 const DragHandle = SortableHandle(() => <span>::</span>);
 
-const Checklist = SortableElement(({ value }) => (
+const Checklist = SortableElement(({ checklist }) => (
     <div className="card-item">
         <div className="card-item-main">
             <input className="card-item-check" type="checkbox" />
-
-            {value}
 
             <DragHandle />
         </div>

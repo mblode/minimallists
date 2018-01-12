@@ -16,52 +16,59 @@ class Card extends Component {
     constructor(props) {
         super(props);
 
+        this.state = { active: "close" };
+
         this.openCard = this.openCard.bind(this);
         this.clickCard = this.clickCard.bind(this);
     }
 
-    handleClickOutside = () => {
-        this.props.card.active = "close";
-        CurrentStore.currentCard("");
-        CurrentStore.currentActive("close");
+    // handleClickOutside = () => {
+    //     this.setState({ active: "close" });
+    //     CurrentStore.currentActive("close");
+    //     CurrentStore.currentCard(this.props.card._id);
+    // };
+
+    clickCard = () => {
+        if (this.state.active == "close") {
+            this.setState({ active: "click" });
+            CurrentStore.currentActive("click");
+        }
     };
 
     openCard = () => {
-        this.props.card.active = "open";
-        CurrentStore.currentCard(this.props.card);
+        this.setState({ active: "open" });
         CurrentStore.currentActive("open");
-    };
-
-    clickCard = () => {
-        if (this.props.card.active === "close") {
-            this.props.card.active = "click";
-            CurrentStore.currentCard(this.props.card);
-            CurrentStore.currentActive("click");
-        }
+        CurrentStore.currentCard(this.props.card._id);
     };
 
     render() {
         const { card } = this.props;
 
         let cardMore = null;
-        let cardClass = " ";
-        if (this.props.card.active === "open") {
-            cardMore = <CardMore card={this.props.card} />;
-            cardClass = "card-open";
-        } else if (this.props.card.active === "click") {
+        let cardClass = "";
+        if (this.state.active === "open") {
+            cardMore = (
+                <CardMore card={this.props.card} refetch={this.props.refetch} />
+            );
+            cardClass = "card-item-open";
+        } else if (this.state.active === "click") {
             cardMore = null;
-            cardClass = "card-click";
+            cardClass = "card-item-click";
         }
 
         return (
             <div
                 className={`card-item ${cardClass}`}
-                onDoubleClick={() => this.openCard()}
-                onClick={() => this.clickCard()}
+                onDoubleClick={this.openCard}
+                onClick={this.clickCard}
             >
                 <div className="card-item-main">
                     <CardChecked refetch={this.props.refetch} card={card} />
-                    <CardInput refetch={this.props.refetch} card={card} />
+                    <CardInput
+                        refetch={this.props.refetch}
+                        card={card}
+                        active={this.state.active}
+                    />
 
                     {cardMore}
                 </div>

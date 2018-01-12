@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { arrayMove } from "react-sortable-hoc";
-
 import CardList from "./CardList";
 
 class CardSortable extends Component {

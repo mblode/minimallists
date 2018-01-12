@@ -46,19 +46,17 @@ class App extends Component {
                         <main className="col-12 col-md-9 col-xl-10 bd-content">
                             <Header />
 
-                            <Route
+                            {/* <Route
                                 exact
                                 path="/"
                                 render={() => <Redirect to="/l/inbox" />}
-                            />
+                            /> */}
 
                             <Route
-                                path="/l/:id?"
-                                render={props => (
-                                    <List icon="inbox" name="Inbox" />
-                                )}
+                                path="/l/:id"
+                                render={props => <List {...props} />}
                             />
-                            <Route path="/logbook" component={Logbook} />
+                            {/* <Route path="/logbook" component={Logbook} />
                             <Route path="/trash" component={Trash} />
                             <Route path="/p/:id?" component={Project} />
                             <Route path="/a/:id?" component={Area} />
@@ -67,7 +65,7 @@ class App extends Component {
                             <Route path="/settings" component={Settings} />
 
                             <Route path="/signin" component={SignIn} />
-                            <Route path="/signup" component={SignUp} />
+                            <Route path="/signup" component={SignUp} /> */}
                         </main>
                     </div>
                 </BrowserRouter>

@@ -16,7 +16,7 @@ class Archive extends Component {
         this.props
             .deleteCard({
                 variables: {
-                    _id: this.props.id
+                    _id: this.props.currentStore.cur.card
                 }
             })
             .then(({ data }) => {
@@ -28,14 +28,30 @@ class Archive extends Component {
     };
 
     render() {
-        return (
+        const icon = <Icon name="trash-2" color="#212529" size="16px" />;
+        let button = (
             <button
-                onClick={this.deleteItem}
+                type="button"
                 className="btn btn-sm footer-button"
+                onClick={() => this.deleteItem()}
             >
-                <Icon name="trash-2" color="#212529" size="16px" />
+                {icon}
             </button>
         );
+
+        if (this.props.buttonState === "disabled") {
+            button = (
+                <button
+                    type="button"
+                    className="btn btn-sm footer-button"
+                    disabled
+                >
+                    {icon}
+                </button>
+            );
+        }
+
+        return <span>{button}</span>;
     }
 }
 

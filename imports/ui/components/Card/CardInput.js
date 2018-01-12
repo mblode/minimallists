@@ -3,7 +3,7 @@ import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 
 const updateCard = gql`
-    mutation updateCard($name: String!, $_id: String!) {
+    mutation updateCard($name: String, $_id: String!) {
         updateCard(name: $name, _id: $_id) {
             name
             _id
@@ -16,7 +16,7 @@ class CardInput extends Component {
         this.props
             .updateCard({
                 variables: {
-                    name: this.name.value,
+                    name: this.cardName.value,
                     _id: this.props.card._id
                 }
             })
@@ -33,7 +33,7 @@ class CardInput extends Component {
             <input
                 type="text"
                 placeholder="New To-Do"
-                ref={input => (this.name = input)}
+                ref={input => (this.cardName = input)}
                 onChange={this.updateName}
                 value={this.props.card.name}
                 className="card-item-input"
