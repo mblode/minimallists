@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { observer } from "mobx-react";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 import Icon from "../Base/Icon";
@@ -11,12 +12,13 @@ const deleteCard = gql`
     }
 `;
 
+@observer
 class Archive extends Component {
     deleteItem = () => {
         this.props
             .deleteCard({
                 variables: {
-                    _id: this.props.currentStore.cur.card
+                    _id: this.props.currentStore.cur.cardId
                 }
             })
             .then(({ data }) => {
@@ -49,6 +51,8 @@ class Archive extends Component {
                     {icon}
                 </button>
             );
+        } else if (this.props.buttonState === "hidden") {
+            button = null;
         }
 
         return <span>{button}</span>;

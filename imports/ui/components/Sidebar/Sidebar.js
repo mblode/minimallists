@@ -75,8 +75,6 @@ class Sidebar extends Component {
                 <div className="mb-3" />
 
                 <NewList refetch={data.refetch} />
-                <NewProject refetch={data.refetch} />
-                <NewArea refetch={data.refetch} />
             </nav>
         );
     }

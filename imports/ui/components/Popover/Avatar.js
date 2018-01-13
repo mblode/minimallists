@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import gravatarUrl from "gravatar-url";
 
-class AvatarDropdown extends React.Component {
+class Avatar extends React.Component {
     constructor(props) {
         super(props);
         this.state = { active: false };
@@ -19,14 +19,22 @@ class AvatarDropdown extends React.Component {
         const username = "mblode";
         return (
             <div
-                className={this.state.active ? "popover-menu popover-active" : "popover-menu"}
+                className={
+                    this.state.active
+                        ? "popover-menu popover-active"
+                        : "popover-menu"
+                }
                 onClick={this.click.bind(this)}
             >
                 <button className="popover-trigger">
                     <span className="btn btn-circular">
                         <span className="btn-content">
                             <div className="avatar">
-                                <img src={image} className="avatar-image" alt={username} />
+                                <img
+                                    src={image}
+                                    className="avatar-image"
+                                    alt={username}
+                                />
                             </div>
                         </span>
                     </span>
@@ -44,27 +52,43 @@ class AvatarDropdown extends React.Component {
                                         >
                                             <span className="btn-content">
                                                 <div className="avatar">
-                                                    <img src={image} className="avatar-image" alt={username} />
+                                                    <img
+                                                        src={image}
+                                                        className="avatar-image"
+                                                        alt={username}
+                                                    />
                                                 </div>
                                             </span>
                                         </Link>
-                                        <div className="account-menu-user-summary__display-name">{username}</div>
+                                        <div className="account-menu-user-summary__display-name">
+                                            {username}
+                                        </div>
                                     </div>
                                 </h2>
 
                                 <hr className="account-menu-separator" />
 
-                                <Link to="/profile" className="account-menu-item">
+                                <Link
+                                    to="/profile"
+                                    className="account-menu-item"
+                                >
                                     Profile
                                 </Link>
 
-                                <Link to="/settings" className="account-menu-item">
+                                <Link
+                                    to="/settings"
+                                    className="account-menu-item"
+                                >
                                     Settings
                                 </Link>
 
                                 <div className="popover-hr" />
 
-                                <a href="" className="account-menu-item" onClick={this.props.onClickSignOut}>
+                                <a
+                                    href=""
+                                    className="account-menu-item"
+                                    onClick={this.props.onClickSignOut}
+                                >
                                     Sign out
                                 </a>
                             </div>
@@ -76,4 +100,4 @@ class AvatarDropdown extends React.Component {
     }
 }
 
-export default AvatarDropdown;
+export default Avatar;

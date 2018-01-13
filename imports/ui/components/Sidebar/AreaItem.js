@@ -66,7 +66,7 @@ class AreaItem extends Component {
                             ref={input => (this.areaName = input)}
                             onChange={this.updateArea}
                             value={this.props.area.name}
-                            className="sidebar-input"
+                            className="sidebar-nav-input"
                         />
                         <span className="sidebar-nav-length">
                             {this.props.length}

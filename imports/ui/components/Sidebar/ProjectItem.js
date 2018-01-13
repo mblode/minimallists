@@ -66,7 +66,7 @@ class ProjectItem extends Component {
                             ref={input => (this.projectName = input)}
                             onChange={this.updateProject}
                             value={this.props.project.name}
-                            className="sidebar-input"
+                            className="sidebar-nav-input"
                         />
                         <span className="sidebar-nav-length">
                             {this.props.length}

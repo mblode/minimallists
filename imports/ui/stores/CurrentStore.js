@@ -3,13 +3,13 @@ import { observable } from "mobx";
 export class CurrentStore {
     @observable
     cur = {
-        card: "",
+        cardId: "",
         active: "close",
         listId: ""
     };
 
     currentCard(value) {
-        this.cur.card = value;
+        this.cur.cardId = value;
     }
 
     currentActive(value) {

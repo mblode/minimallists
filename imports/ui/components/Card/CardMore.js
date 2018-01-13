@@ -4,7 +4,6 @@ import gql from "graphql-tag";
 
 import Textarea from "../Base/ExpandingTextarea";
 import ChecklistList from "../Checklist/ChecklistList";
-import AddChecklist from "../Checklist/AddChecklist";
 import When from "./When";
 import Labels from "./Labels";
 import NewChecklist from "./NewChecklist";
@@ -47,15 +46,14 @@ class CardMore extends Component {
                     onChange={this.updateNotes}
                     value={this.props.card.notes}
                 />
-                <AddChecklist
-                    card={this.props.card}
-                    refetch={this.props.refetch}
-                />
                 <ChecklistList checklists={this.props.card.checklists} />
 
                 <When />
                 {/* <Labels /> */}
-                <NewChecklist />
+                <NewChecklist
+                    card={this.props.card}
+                    refetch={this.props.refetch}
+                />
                 <Deadline />
             </div>
         );

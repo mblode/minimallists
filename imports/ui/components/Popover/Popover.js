@@ -1,9 +1,18 @@
 import React, { Component } from "react";
-import Icon from "../Base/Icon";
-import ThingsCalendar from "things-calendar";
 import { Manager, Target, Popper, Arrow } from "react-popper";
+import { graphql } from "react-apollo";
+import gql from "graphql-tag";
+import Icon from "../Base/Icon";
 
-class When extends Component {
+const deleteList = gql`
+    mutation deleteList($_id: String!) {
+        deleteList(_id: $_id) {
+            _id
+        }
+    }
+`;
+
+class Popover extends Component {
     constructor(props) {
         super(props);
         this.state = { active: false };
@@ -17,6 +26,21 @@ class When extends Component {
         this.setState({ active: false });
     };
 
+    deleteList = () => {
+        this.props
+            .deleteList({
+                variables: {
+                    _id: this.props.currentStore.cur.listId
+                }
+            })
+            .then(({ data }) => {
+                this.props.refetch();
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
+
     render() {
         return (
             <Manager>
@@ -24,9 +48,12 @@ class When extends Component {
                     <button
                         onFocus={() => this.openPopover()}
                         onBlur={() => this.closePopover()}
-                        className="btn btn-sm footer-button"
                     >
-                        <Icon name="calendar" color="#6c757d" size="16px" />
+                        <Icon
+                            name="more-vertical"
+                            color="#6c757d"
+                            size="16px"
+                        />
                     </button>
                 </Target>
                 <Popper
@@ -38,11 +65,9 @@ class When extends Component {
                     }
                 >
                     <div className="popover-body">
-                        <ThingsCalendar
-                            ref={calendar => (this.calendar = calendar)}
-                            show={true}
-                            onSelect={date => console.log(date)}
-                        />;
+                        <button type="button" onClick={this.deleteList}>
+                            X
+                        </button>
                     </div>
                     <Arrow className="arrow" />
                 </Popper>
@@ -51,4 +76,4 @@ class When extends Component {
     }
 }
 
-export default When;
+export default graphql(deleteList, { name: "deleteList" })(Popover);

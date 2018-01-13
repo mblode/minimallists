@@ -9,6 +9,8 @@ const Checklist = SortableElement(({ checklist }) => (
         <div className="card-item-main">
             <input className="card-item-check" type="checkbox" />
 
+            <span>{checklist.name}</span>
+
             <DragHandle />
         </div>
     </div>

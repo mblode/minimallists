@@ -1,24 +1,29 @@
 import React from "react";
 import { SortableContainer } from "react-sortable-hoc";
+import CurrentStore from "../../stores/CurrentStore";
 
-import Card from "./Card";
+import CardOuter from "./CardOuter";
 
 const CardList = SortableContainer(({ refetch, cards }) => {
-    if (cards.length > 0) {
-        return (
-            <div>
-                {cards.map((card, index) => (
-                    <Card
-                        key={`card-${index}`}
-                        index={index}
-                        card={card}
-                        refetch={refetch}
-                    />
-                ))}
-            </div>
-        );
+    let disabled = false;
+    if (CurrentStore.cur.active == "open") {
+        disabled = true;
     }
-    return null;
+
+    return (
+        <div>
+            {cards.map((card, index) => (
+                <CardOuter
+                    key={index}
+                    index={index}
+                    card={card}
+                    refetch={refetch}
+                    outsideClickIgnoreClass={"ignore"}
+                    disabled={disabled}
+                />
+            ))}
+        </div>
+    );
 });
 
 export default CardList;

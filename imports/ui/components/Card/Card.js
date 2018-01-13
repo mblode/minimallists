@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
-import onClickOutside from "react-onclickoutside";
-import { SortableElement } from "react-sortable-hoc";
 import { observer } from "mobx-react";
+import onClickOutside from "react-onclickoutside";
+import Icon from "../Base/Icon";
 
 import CurrentStore from "../../stores/CurrentStore";
 
@@ -15,23 +15,29 @@ import CardChecked from "./CardChecked";
 class Card extends Component {
     constructor(props) {
         super(props);
-
         this.state = { active: "close" };
 
-        this.openCard = this.openCard.bind(this);
         this.clickCard = this.clickCard.bind(this);
+        this.openCard = this.openCard.bind(this);
     }
 
-    // handleClickOutside = () => {
-    //     this.setState({ active: "close" });
-    //     CurrentStore.currentActive("close");
-    //     CurrentStore.currentCard(this.props.card._id);
-    // };
+    handleClickOutside = () => {
+        if (this.state.active == "open") {
+            this.setState({ active: "click" });
+            CurrentStore.currentActive("click");
+            CurrentStore.currentCard(this.props.card._id);
+        } else if (this.state.active == "click") {
+            this.setState({ active: "close" });
+            CurrentStore.currentActive("close");
+            CurrentStore.currentCard("");
+        }
+    };
 
     clickCard = () => {
         if (this.state.active == "close") {
             this.setState({ active: "click" });
             CurrentStore.currentActive("click");
+            CurrentStore.currentCard(this.props.card._id);
         }
     };
 
@@ -46,11 +52,18 @@ class Card extends Component {
 
         let cardMore = null;
         let cardClass = "";
+        let checklistIcon = null;
+
+        if (card.checklists.length) {
+            checklistIcon = <Icon name="list" color="#6c757d" size="16px" />;
+        }
+
         if (this.state.active === "open") {
             cardMore = (
                 <CardMore card={this.props.card} refetch={this.props.refetch} />
             );
             cardClass = "card-item-open";
+            checklistIcon = null;
         } else if (this.state.active === "click") {
             cardMore = null;
             cardClass = "card-item-click";
@@ -70,6 +83,8 @@ class Card extends Component {
                         active={this.state.active}
                     />
 
+                    {checklistIcon}
+
                     {cardMore}
                 </div>
             </div>
@@ -77,4 +92,4 @@ class Card extends Component {
     }
 }
 
-export default SortableElement(Card);
+export default onClickOutside(Card);

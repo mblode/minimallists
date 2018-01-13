@@ -34,11 +34,11 @@
     }
 }
 
-@media (min-width: 768px) {
-    .sidebar-links {
-        overflow-y: auto;
-    }
-}
+// @media (min-width: 768px) {
+//     .sidebar-links {
+//         overflow-y: auto;
+//     }
+// }
 
 .sidebar-links {
     margin-top: 1.5rem;
@@ -85,13 +85,14 @@
     }
 }
 
-.sidebar-input {
+.sidebar-nav-input {
     background: transparent;
     outline: none;
     caret-color: #07c;
     border: none;
     margin: 0;
     padding: 0;
+    flex-grow: 1;
 }
 
 .sidebar-footer-btn {
@@ -108,8 +109,8 @@
 }
 
 .sidebar-footer {
-    // position: absolute;
-    // bottom: 0;
+    position: fixed;
+    bottom: 0;
     width: 100%;
     border-top: $border;
     padding: 0.25rem 1rem;

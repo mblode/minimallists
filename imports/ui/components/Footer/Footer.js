@@ -14,63 +14,28 @@ import When from "./When";
 @observer
 class Footer extends Component {
     render() {
-        // let footerMain = null;
+        let footerMain = null;
 
-        // if (CurrentStore.cur.active === "open") {
-        //     footerMain = (
-        //         <div>
-        //             <When currentStore={CurrentStore} />
-        //             <Move currentStore={CurrentStore} />
-        //             <Archive currentStore={CurrentStore} />
-        //         </div>
-        //     );
-        // } else if (CurrentStore.cur.active === "open") {
-        //     footerMain = (
-        //         <div>
-        //             <When currentStore={CurrentStore} />
-        //             <Move currentStore={CurrentStore} />
-        //             <Archive currentStore={CurrentStore} />
-        //         </div>
-        //     );
-        // } else if (
-        //     this.props.location.pathname === "/logbook" ||
-        //     this.props.location.pathname === "/trash"
-        // ) {
-        //     footerMain = (
-        //         <div>
-        //             <NewCard disabled />
-        //             <When disabled />
-        //             <Move disabled />
-        //             <QuickFind />
-        //         </div>
-        //     );
-        // } else {
-        //     footerMain = (
-        //         <div>
-        //             <NewCard currentStore={CurrentStore} />
-        //             <When disabled />
-        //             <Move disabled />
-        //             <QuickFind />
-        //         </div>
-        //     );
-        // }
-
-        return (
-            <footer className="footer-main">
-                <div className="nav justify-content-center">
+        if (CurrentStore.cur.active === "close") {
+            footerMain = (
+                <div>
                     <NewCard
                         currentStore={CurrentStore}
                         refetch={this.props.refetch}
                         buttonState={this.props.newCard}
                     />
-                    <NewHeading
-                        currentStore={CurrentStore}
-                        buttonState={this.props.newHeading}
-                    />
-                    <Archive
+                    <When buttonState="disabled" />
+                    <Move buttonState="disabled" />
+                    <QuickFind />
+                </div>
+            );
+        } else if (CurrentStore.cur.active === "click") {
+            footerMain = (
+                <div>
+                    <NewCard
                         currentStore={CurrentStore}
                         refetch={this.props.refetch}
-                        buttonState={this.props.archive}
+                        buttonState={this.props.newCard}
                     />
                     <When
                         currentStore={CurrentStore}
@@ -81,8 +46,27 @@ class Footer extends Component {
                         buttonState={this.props.move}
                     />
                     <QuickFind />
-                    {/* {footerMain} */}
                 </div>
+            );
+        } else if (CurrentStore.cur.active === "open") {
+            footerMain = (
+                <div>
+                    <Move
+                        currentStore={CurrentStore}
+                        buttonState={this.props.move}
+                    />
+                    <Archive
+                        currentStore={CurrentStore}
+                        refetch={this.props.refetch}
+                        buttonState={this.props.archive}
+                    />
+                </div>
+            );
+        }
+
+        return (
+            <footer className="col-12 col-md-9 col-xl-10 bd-content footer-main">
+                <div className="nav justify-content-center">{footerMain}</div>
             </footer>
         );
     }

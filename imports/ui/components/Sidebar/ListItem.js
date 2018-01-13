@@ -70,15 +70,15 @@ class ListItem extends Component {
                             ref={input => (this.listName = input)}
                             onChange={this.updateList}
                             value={this.props.list.name}
-                            className="sidebar-input"
+                            className="sidebar-nav-input"
                         />
                         <span className="sidebar-nav-length">
                             {this.props.length}
                         </span>
 
-                        <button type="button" onClick={this.deleteList}>
+                        {/* <button type="button" onClick={this.deleteList}>
                             X
-                        </button>
+                        </button> */}
                     </div>
                 </NavLink>
             </div>

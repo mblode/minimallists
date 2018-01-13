@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import AvatarDropdown from "./AvatarDropdown";
+import Avatar from "../Popover/Avatar";
 
 class Header extends Component {
     render() {
@@ -12,7 +12,7 @@ class Header extends Component {
 
                 <ul className="nav navbar-nav ml-auto">
                     <li className="nav-item">
-                        <AvatarDropdown position="bottom" />
+                        <Avatar />
                     </li>
                 </ul>
             </nav>

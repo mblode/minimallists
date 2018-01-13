@@ -13,7 +13,7 @@ type Query {
 }
 
 type Card {
-    _id: String!
+    _id: String! @isUnique
     archived: Boolean
     completed: Boolean
     due: String
@@ -32,7 +32,7 @@ type Card {
 }
 
 type Checklist {
-    _id: String!
+    _id: String! @isUnique
     cardId: String
     card: Card
     name: String!
@@ -41,12 +41,12 @@ type Checklist {
 }
 
 type Label {
-    _id: String!
+    _id: String! @isUnique
     name: String!
 }
 
 type List {
-    _id: String!
+    _id: String! @isUnique
     name: String!
     archived: Boolean
     pos: Float
@@ -55,7 +55,7 @@ type List {
 }
 
 type Project {
-    _id: String!
+    _id: String! @isUnique
     name: String!
     archived: Boolean
     pos: Float
@@ -63,7 +63,7 @@ type Project {
 }
 
 type Area {
-    _id: String!
+    _id: String! @isUnique
     name: String!
     archived: Boolean
     pos: Float

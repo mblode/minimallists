@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import Icon from "../Base/Icon";
 import ThingsCalendar from "things-calendar";
 import { Manager, Target, Popper, Arrow } from "react-popper";
 
-class When extends Component {
+export default class When extends React.Component {
     constructor(props) {
         super(props);
         this.state = { active: false };
@@ -24,9 +24,12 @@ class When extends Component {
                     <button
                         onFocus={() => this.openPopover()}
                         onBlur={() => this.closePopover()}
-                        className="btn btn-sm footer-button"
                     >
-                        <Icon name="calendar" color="#6c757d" size="16px" />
+                        <Icon
+                            name="more-vertical"
+                            color="#6c757d"
+                            size="16px"
+                        />
                     </button>
                 </Target>
                 <Popper
@@ -50,5 +53,3 @@ class When extends Component {
         );
     }
 }
-
-export default When;

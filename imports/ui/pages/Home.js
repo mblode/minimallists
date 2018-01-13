@@ -43,7 +43,7 @@ class List extends Component {
                             onChange={this.updateList}
                             placeholder="New List"
                             className="project-title"
-                            value={data.list.name}
+                            value="Inbox"
                         />
                         <Popover
                             currentStore={CurrentStore}
@@ -61,7 +61,7 @@ class List extends Component {
 
 const cardQuery = gql`
     {
-        list(_id: "zZwtaMMGZ33Yjzevv") {
+        lists {
             _id
             name
         }

@@ -101,6 +101,7 @@ body {
     margin-top: 2rem;
     margin-bottom: 2rem;
     padding: 1rem;
+    user-select: none;
     background: white;
 }
 
@@ -112,6 +113,16 @@ body {
     margin: 0;
     padding: 0;
     width: calc(100% - 2rem);
+}
+
+.card-item-span {
+    user-select: none;
+    pointer-events: none;
+    width: auto;
+}
+
+.card-item-placeholder {
+    color: $input-placeholder-color;
 }
 
 .card-item-notes {
