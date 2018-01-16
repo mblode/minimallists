@@ -1,4 +1,4 @@
-import { Cards, Checklists, Labels, Lists, Projects, Areas } from "./cards";
+import { Cards, Checklists, Labels, Lists, Projects } from "./cards";
 
 export default {
     Query: {
@@ -28,12 +28,6 @@ export default {
         },
         projects: async () => {
             return await Projects.find({}).fetch();
-        },
-        area: async (root, { _id }) => {
-            return await Areas.findOne(_id);
-        },
-        areas: async () => {
-            return await Areas.find({}).fetch();
         }
     },
 
@@ -92,6 +86,12 @@ export default {
             });
             return Cards.findOne(cardId);
         },
+        // emptyTrash(obj, context) {
+        //     const cardId = Cards.remove({
+        //         archived: true
+        //     });
+        //     return Cards.find(cardId).fetch();
+        // },
         createChecklist: async (root, args) => {
             const res = Checklists.insert(args);
             return Checklists.findOne(res);
@@ -143,24 +143,6 @@ export default {
                 _id
             });
             return Projects.findOne(projectId);
-        },
-        createArea: async (root, args) => {
-            const res = Areas.insert(args);
-            return Areas.findOne(res);
-        },
-        updateArea(obj, { name, _id }, context) {
-            const areaId = Areas.update(_id, {
-                $set: {
-                    name
-                }
-            });
-            return Areas.findOne(areaId);
-        },
-        deleteArea(obj, { _id }, context) {
-            const areaId = Areas.remove({
-                _id
-            });
-            return Areas.findOne(areaId);
         },
         createLabel(obj, { name }, context) {
             const labelId = Labels.insert({

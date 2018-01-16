@@ -2,7 +2,7 @@ import React from "react";
 import { SortableContainer } from "react-sortable-hoc";
 import Checklist from "./Checklist";
 
-const ChecklistList = ({ refetch, checklists }) => {
+const ChecklistList = ({ checklists }) => {
     if (checklists.length > 0) {
         return (
             <div>
@@ -11,7 +11,6 @@ const ChecklistList = ({ refetch, checklists }) => {
                         key={index}
                         index={index}
                         checklist={checklist}
-                        refetch={refetch}
                     />
                 ))}
             </div>

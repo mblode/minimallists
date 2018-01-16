@@ -3,29 +3,27 @@ import { withRouter } from "react-router-dom";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 
-import AreaItem from "./AreaItem";
+import InboxItem from "./InboxItem";
 import ListItem from "./ListItem";
 import LogbookItem from "./LogbookItem";
 import ProjectItem from "./ProjectItem";
 import TrashItem from "./TrashItem";
 
-import NewArea from "./NewArea";
 import NewProject from "./NewProject";
 import NewList from "./NewList";
 
 class Sidebar extends Component {
     render() {
-        const { data } = this.props;
-        if (data.loading) return null;
+        const { loading, cards, projects, lists } = this.props;
+        if (loading) return null;
 
         let listNodes = null;
-        if (data.lists) {
-            listNodes = data.lists.map((list, index) => {
+        if (lists) {
+            listNodes = lists.map((list, index) => {
                 return (
                     <ListItem
                         list={list}
-                        length={data.cards.length}
-                        refetch={data.refetch}
+                        length={cards.length}
                         icon="inbox"
                         key={index}
                     />
@@ -34,28 +32,12 @@ class Sidebar extends Component {
         }
 
         let projectNodes = null;
-        if (data.projects) {
-            projectNodes = data.projects.map((project, index) => {
+        if (projects) {
+            projectNodes = projects.map((project, index) => {
                 return (
                     <ProjectItem
                         project={project}
-                        length={data.cards.length}
-                        refetch={data.refetch}
-                        icon="inbox"
-                        key={index}
-                    />
-                );
-            });
-        }
-
-        let areaNodes = null;
-        if (data.areas) {
-            areaNodes = data.areas.map((area, index) => {
-                return (
-                    <AreaItem
-                        area={area}
-                        length={data.cards.length}
-                        refetch={data.refetch}
+                        length={cards.length}
                         icon="inbox"
                         key={index}
                     />
@@ -65,32 +47,36 @@ class Sidebar extends Component {
 
         return (
             <nav className="sidebar-links">
+                <InboxItem />
+
+                <div className="mb-3" />
+
                 {listNodes}
+
+                <div className="mb-3" />
+
+                <LogbookItem />
+                <TrashItem />
+
                 <div className="mb-3" />
 
                 {projectNodes}
+
                 <div className="mb-3" />
 
-                {areaNodes}
-                <div className="mb-3" />
-
-                <NewList refetch={data.refetch} />
+                <NewList />
             </nav>
         );
     }
 }
 
 const sidebarQuery = gql`
-    {
+    query sidebarQuery {
         lists {
             _id
             name
         }
         projects {
-            _id
-            name
-        }
-        areas {
             _id
             name
         }
@@ -100,5 +86,6 @@ const sidebarQuery = gql`
     }
 `;
 
-Sidebar = withRouter(Sidebar);
-export default graphql(sidebarQuery)(Sidebar);
+export default graphql(sidebarQuery, {
+    props: ({ data }) => ({ ...data })
+})(Sidebar);

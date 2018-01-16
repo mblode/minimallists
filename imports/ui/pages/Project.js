@@ -32,10 +32,10 @@ class Project extends Component {
                         className="project-notes"
                     />
 
-                    <CardSortable refetch={data.refetch} cards={data.cards} />
+                    <CardSortable cards={data.cards} />
                 </div>
 
-                <Footer newHeading="visible" refetch={data.refetch} />
+                <Footer newHeading="visible" />
             </div>
         );
     }

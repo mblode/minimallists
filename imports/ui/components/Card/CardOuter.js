@@ -6,11 +6,7 @@ class CardOuter extends Component {
     render() {
         return (
             <div>
-                <Card
-                    card={this.props.card}
-                    index={this.props.index}
-                    refetch={this.props.refetch}
-                />
+                <Card card={this.props.card} index={this.props.index} />
             </div>
         );
     }

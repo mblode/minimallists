@@ -15,11 +15,8 @@ class List extends Component {
             .updateList({
                 variables: {
                     name: this.listPageName.value,
-                    _id: this.props.data.list._id
+                    _id: this.props.list._id
                 }
-            })
-            .then(({ data }) => {
-                this.props.data.refetch();
             })
             .catch(error => {
                 console.log(error);
@@ -29,8 +26,8 @@ class List extends Component {
     render() {
         CurrentStore.currentList(this.props.match.params.id);
 
-        const { data } = this.props;
-        if (data.loading) return null;
+        const { loading, list, cards } = this.props;
+        if (loading) return null;
         return (
             <div>
                 <div className="page">
@@ -43,25 +40,22 @@ class List extends Component {
                             onChange={this.updateList}
                             placeholder="New List"
                             className="project-title"
-                            value={data.list.name}
+                            value={list.name}
                         />
-                        <Popover
-                            currentStore={CurrentStore}
-                            refetch={data.refetch}
-                        />
+                        <Popover currentStore={CurrentStore} />
                     </div>
-                    <CardSortable refetch={data.refetch} cards={data.cards} />
+                    <CardSortable cards={cards} />
                 </div>
 
-                <Footer refetch={data.refetch} />
+                <Footer />
             </div>
         );
     }
 }
 
 const cardQuery = gql`
-    {
-        list(_id: "zZwtaMMGZ33Yjzevv") {
+    query cardQuery($slug: String!) {
+        list(_id: $slug) {
             _id
             name
         }
@@ -89,6 +83,18 @@ const updateList = gql`
 `;
 
 export default compose(
-    graphql(cardQuery),
-    graphql(updateList, { name: "updateList" })
+    graphql(cardQuery, {
+        options: {
+            variables: {
+                slug: "m5bobxPetFpYaRsLa"
+            }
+        },
+        props: ({ data }) => ({ ...data })
+    }),
+    graphql(updateList, {
+        name: "updateList",
+        options: {
+            refetchQueries: ["cardQuery"]
+        }
+    })
 )(List);

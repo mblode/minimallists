@@ -20,9 +20,6 @@ class CardChecked extends Component {
                     _id: this.props.card._id
                 }
             })
-            .then(({ data }) => {
-                this.props.refetch();
-            })
             .catch(error => {
                 console.log(error);
             });
@@ -40,6 +37,9 @@ class CardChecked extends Component {
     }
 }
 
-export default graphql(updateCardCompleted, { name: "updateCardCompleted" })(
-    CardChecked
-);
+export default graphql(updateCardCompleted, {
+    name: "updateCardCompleted",
+    options: {
+        refetchQueries: ["cardQuery"]
+    }
+})(CardChecked);

@@ -9,7 +9,7 @@ class TrashItem extends Component {
                 <NavLink to="/trash">
                     <div className="sidebar-nav-link">
                         <Icon name="trash-2" color="#212529" size="20px" />
-                        <span>Trash</span>
+                        <span className="sidebar-nav-name">Trash</span>
                     </div>
                 </NavLink>
             </div>
@@ -17,5 +17,4 @@ class TrashItem extends Component {
     }
 }
 
-TrashItem = withRouter(TrashItem);
 export default TrashItem;

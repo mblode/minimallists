@@ -19,9 +19,6 @@ class NewCard extends Component {
                     name: ""
                 }
             })
-            .then(({ data }) => {
-                this.props.refetch();
-            })
             .catch(error => {
                 console.log(error);
             });
@@ -55,4 +52,9 @@ class NewCard extends Component {
     }
 }
 
-export default graphql(createCard, { name: "createCard" })(NewCard);
+export default graphql(createCard, {
+    name: "createCard",
+    options: {
+        refetchQueries: ["cardQuery"]
+    }
+})(NewCard);

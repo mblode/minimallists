@@ -85,6 +85,11 @@ body {
     transition: box-shadow $trans, margin $trans, padding $trans;
 }
 
+.card-item-main {
+    // display: flex;
+    // align-items: center;
+}
+
 .card-item-check {
     margin-right: 0.5rem;
     top: -1px;
@@ -125,6 +130,12 @@ body {
     color: $input-placeholder-color;
 }
 
+.card-item-checklist-icon {
+    margin-left: 0.5rem;
+    position: relative;
+    top: -1px;
+}
+
 .card-item-notes {
     background: transparent;
     display: block;
@@ -149,10 +160,6 @@ body {
     svg {
         margin-right: 0.5rem;
     }
-}
-
-.area-title-group {
-    margin-bottom: 4rem;
 }
 
 .project-title {

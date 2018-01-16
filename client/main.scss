@@ -9,6 +9,8 @@
 @import "{}/imports/ui/assets/scss/base/_base.scss"; // Body
 
 // Plugins
+@import "{}/imports/ui/assets/scss/components/_page.scss";
+@import "{}/imports/ui/assets/scss/components/_buttons.scss";
 @import "{}/imports/ui/assets/scss/components/_header.scss";
 @import "{}/imports/ui/assets/scss/components/_footer.scss";
 @import "{}/imports/ui/assets/scss/components/_sidebar.scss";

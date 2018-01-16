@@ -78,6 +78,16 @@
         flex-grow: 1;
     }
 
+    .sidebar-nav-input {
+        background: transparent;
+        outline: none;
+        caret-color: #07c;
+        border: none;
+        margin: 0;
+        padding: 0;
+        flex-grow: 1;
+    }
+
     .sidebar-nav-length {
         font-weight: 500;
         color: $secondary;
@@ -85,23 +95,17 @@
     }
 }
 
-.sidebar-nav-input {
-    background: transparent;
-    outline: none;
-    caret-color: #07c;
-    border: none;
-    margin: 0;
-    padding: 0;
-    flex-grow: 1;
-}
-
 .sidebar-footer-btn {
     background: transparent;
     color: $secondary;
-    width: 100%;
+    width: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    span {
+        margin-left: 0.5rem;
+    }
 }
 
 .sidebar-footer-btn:hover {
@@ -114,4 +118,5 @@
     width: 100%;
     border-top: $border;
     padding: 0.25rem 1rem;
+    display: flex;
 }

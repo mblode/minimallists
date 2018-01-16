@@ -31,9 +31,6 @@ class ListItem extends Component {
                     _id: this.props.list._id
                 }
             })
-            .then(({ data }) => {
-                this.props.refetch();
-            })
             .catch(error => {
                 console.log(error);
             });
@@ -45,9 +42,6 @@ class ListItem extends Component {
                 variables: {
                     _id: this.props.list._id
                 }
-            })
-            .then(({ data }) => {
-                this.props.refetch();
             })
             .catch(error => {
                 console.log(error);
@@ -87,6 +81,16 @@ class ListItem extends Component {
 }
 
 export default compose(
-    graphql(updateList, { name: "updateList" }),
-    graphql(deleteList, { name: "deleteList" })
+    graphql(updateList, {
+        name: "updateList",
+        options: {
+            refetchQueries: ["sidebarQuery"]
+        }
+    }),
+    graphql(deleteList, {
+        name: "deleteList",
+        options: {
+            refetchQueries: ["sidebarQuery"]
+        }
+    })
 )(ListItem);

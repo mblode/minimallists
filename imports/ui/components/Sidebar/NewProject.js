@@ -19,9 +19,6 @@ class NewProject extends Component {
                     name: ""
                 }
             })
-            .then(({ data }) => {
-                this.props.refetch();
-            })
             .catch(error => {
                 console.log(error);
             });
@@ -42,4 +39,9 @@ class NewProject extends Component {
     }
 }
 
-export default graphql(createProject, { name: "createProject" })(NewProject);
+export default graphql(createProject, {
+    name: "createProject",
+    options: {
+        refetchQueries: ["sidebarQuery"]
+    }
+})(NewProject);

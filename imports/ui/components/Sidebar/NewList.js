@@ -12,14 +12,6 @@ const createList = gql`
     }
 `;
 
-const createArea = gql`
-    mutation createArea($name: String!) {
-        createArea(name: $name) {
-            _id
-        }
-    }
-`;
-
 const createProject = gql`
     mutation createProject($name: String!) {
         createProject(name: $name) {
@@ -49,9 +41,6 @@ class NewList extends Component {
                     name: ""
                 }
             })
-            .then(({ data }) => {
-                this.props.refetch();
-            })
             .catch(error => {
                 console.log(error);
             });
@@ -64,24 +53,6 @@ class NewList extends Component {
                     name: ""
                 }
             })
-            .then(({ data }) => {
-                this.props.refetch();
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    };
-
-    newArea = () => {
-        this.props
-            .createArea({
-                variables: {
-                    name: ""
-                }
-            })
-            .then(({ data }) => {
-                this.props.refetch();
-            })
             .catch(error => {
                 console.log(error);
             });
@@ -90,68 +61,36 @@ class NewList extends Component {
     render() {
         return (
             <div className="col-12 col-md-3 col-xl-2 sidebar-footer">
-                <Manager>
-                    <Target>
-                        <button
-                            className="btn btn-sm btn-block sidebar-footer-btn"
-                            onFocus={() => this.openPopover()}
-                            onBlur={() => this.closePopover()}
-                        >
-                            <Icon name="plus" color="#212529" size="16px" />
-                            <span> New List</span>
-                        </button>
-                    </Target>
-                    <Popper
-                        placement="top"
-                        className={
-                            this.state.active
-                                ? "popover fade bs-popover-top show"
-                                : "popover fade bs-popover-top"
-                        }
-                    >
-                        <div className="popover-body">
-                            <button
-                                className="btn btn-sm btn-block sidebar-footer-btn"
-                                onClick={() => this.newList()}
-                            >
-                                <Icon name="plus" color="#212529" size="16px" />
-                                <span> New List</span>
-                            </button>
-
-                            <button
-                                className="btn btn-sm btn-block sidebar-footer-btn"
-                                onClick={() => this.newProject()}
-                            >
-                                <Icon
-                                    name="folder"
-                                    color="#212529"
-                                    size="16px"
-                                />
-                                <span> New Project</span>
-                            </button>
-
-                            <button
-                                className="btn btn-sm btn-block sidebar-footer-btn"
-                                onClick={() => this.newArea()}
-                            >
-                                <Icon
-                                    name="package"
-                                    color="#212529"
-                                    size="16px"
-                                />
-                                <span> New Area</span>
-                            </button>
-                        </div>
-                        <Arrow className="arrow" />
-                    </Popper>
-                </Manager>
+                <button
+                    className="btn btn-sm btn-flex sidebar-footer-btn"
+                    onClick={() => this.newList()}
+                >
+                    <Icon name="plus" color="#212529" size="16px" />
+                    <span> New List</span>
+                </button>
+                <button
+                    className="btn btn-sm btn-flex sidebar-footer-btn"
+                    onClick={() => this.newProject()}
+                >
+                    <Icon name="folder" color="#212529" size="16px" />
+                    <span> New Project</span>
+                </button>
             </div>
         );
     }
 }
 
 export default compose(
-    graphql(createList, { name: "createList" }),
-    graphql(createProject, { name: "createProject" }),
-    graphql(createArea, { name: "createArea" })
+    graphql(createList, {
+        name: "createList",
+        options: {
+            refetchQueries: ["sidebarQuery"]
+        }
+    }),
+    graphql(createProject, {
+        name: "createProject",
+        options: {
+            refetchQueries: ["cardQuery"]
+        }
+    })
 )(NewList);

@@ -8,8 +8,6 @@ type Query {
     lists: [List]
     project(_id: String): Project
     projects: [Project]
-    area(_id: String): Area
-    areas: [Area]
 }
 
 type Card {
@@ -24,8 +22,6 @@ type Card {
     list: List
     projectId: String
     project: Project
-    areaId: String
-    area: Area
     name: String
     notes: String
     pos: Float
@@ -62,14 +58,6 @@ type Project {
     cards: [Card]
 }
 
-type Area {
-    _id: String! @isUnique
-    name: String!
-    archived: Boolean
-    pos: Float
-    cards: [Card]
-}
-
 type Mutation {
     createCard(listId: String, name: String!): Card
     updateCard(_id: String!, name: String): Card
@@ -98,10 +86,6 @@ type Mutation {
     createProject(name: String!): Project
     updateProject(_id: String!, name: String): Project
     deleteProject(_id: String!): Project
-
-    createArea(name: String!): Area
-    updateArea(_id: String!, name: String): Area
-    deleteArea(_id: String!): Area
 }
 
 schema {

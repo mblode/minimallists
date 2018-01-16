@@ -18,10 +18,10 @@ class Logbook extends Component {
                         <Icon name="book" color="#212529" />
                         Logbook
                     </h3>
-                    <CardSortable refetch={data.refetch} cards={data.cards} />
+                    <CardSortable cards={data.cards} />
                 </div>
 
-                <Footer newCard="disabled" refetch={data.refetch} />
+                <Footer newCard="disabled" />
             </div>
         );
     }

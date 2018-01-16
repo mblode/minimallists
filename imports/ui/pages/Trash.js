@@ -4,13 +4,31 @@ import Footer from "../components/Footer/Footer";
 import CardSortable from "../components/Card/CardSortable";
 import Icon from "../components/Base/Icon";
 
-import { graphql } from "react-apollo";
+import { graphql, compose } from "react-apollo";
 import gql from "graphql-tag";
 
 class Trash extends Component {
     render() {
         const { data } = this.props;
-        if (data.loading) return null;
+        if (data.loading || !data.cards.length) {
+            return (
+                <div>
+                    <div className="page">
+                        <h3 className="list-title">
+                            <Icon name="trash-2" color="#212529" />
+                            List
+                        </h3>
+
+                        <div>
+                            <Icon name="trash-2" color="#212529" size="64px" />
+                        </div>
+                    </div>
+
+                    <Footer newCard="disabled" />
+                </div>
+            );
+        }
+
         return (
             <div>
                 <div className="page">
@@ -23,10 +41,10 @@ class Trash extends Component {
                         Empty trash
                     </button>
 
-                    <CardSortable refetch={data.refetch} cards={data.cards} />
+                    <CardSortable cards={data.cards} />
                 </div>
 
-                <Footer newCard="disabled" refetch={data.refetch} />
+                <Footer newCard="disabled" />
             </div>
         );
     }
@@ -39,8 +57,13 @@ const cardQuery = gql`
             name
             completed
             notes
+            checklists {
+                _id
+                name
+                completed
+            }
         }
     }
 `;
 
-export default graphql(cardQuery)(Trash);
+export default compose(graphql(cardQuery))(Trash);

@@ -17,7 +17,6 @@ class CardSortable extends Component {
                 <CardList
                     cards={this.state.cards}
                     onSortEnd={this.onSortEnd}
-                    refetch={this.props.refetch}
                     distance={10}
                 />
             </div>

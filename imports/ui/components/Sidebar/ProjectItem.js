@@ -31,9 +31,6 @@ class ProjectItem extends Component {
                     _id: this.props.project._id
                 }
             })
-            .then(({ data }) => {
-                this.props.refetch();
-            })
             .catch(error => {
                 console.log(error);
             });
@@ -45,9 +42,6 @@ class ProjectItem extends Component {
                 variables: {
                     _id: this.props.project._id
                 }
-            })
-            .then(({ data }) => {
-                this.props.refetch();
             })
             .catch(error => {
                 console.log(error);
@@ -72,9 +66,9 @@ class ProjectItem extends Component {
                             {this.props.length}
                         </span>
 
-                        <button type="button" onClick={this.deleteProject}>
+                        {/* <button type="button" onClick={this.deleteProject}>
                             X
-                        </button>
+                        </button> */}
                     </div>
                 </NavLink>
             </div>
@@ -83,6 +77,16 @@ class ProjectItem extends Component {
 }
 
 export default compose(
-    graphql(updateProject, { name: "updateProject" }),
-    graphql(deleteProject, { name: "deleteProject" })
+    graphql(updateProject, {
+        name: "updateProject",
+        options: {
+            refetchQueries: ["sidebarQuery"]
+        }
+    }),
+    graphql(deleteProject, {
+        name: "deleteProject",
+        options: {
+            refetchQueries: ["sidebarQuery"]
+        }
+    })
 )(ProjectItem);

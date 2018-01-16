@@ -55,13 +55,15 @@ class Card extends Component {
         let checklistIcon = null;
 
         if (card.checklists.length) {
-            checklistIcon = <Icon name="list" color="#6c757d" size="16px" />;
+            checklistIcon = (
+                <span className="card-item-checklist-icon">
+                    <Icon name="list" color="#6c757d" size="16px" />
+                </span>
+            );
         }
 
         if (this.state.active === "open") {
-            cardMore = (
-                <CardMore card={this.props.card} refetch={this.props.refetch} />
-            );
+            cardMore = <CardMore card={this.props.card} />;
             cardClass = "card-item-open";
             checklistIcon = null;
         } else if (this.state.active === "click") {
@@ -76,12 +78,8 @@ class Card extends Component {
                 onClick={this.clickCard}
             >
                 <div className="card-item-main">
-                    <CardChecked refetch={this.props.refetch} card={card} />
-                    <CardInput
-                        refetch={this.props.refetch}
-                        card={card}
-                        active={this.state.active}
-                    />
+                    <CardChecked card={card} />
+                    <CardInput card={card} active={this.state.active} />
 
                     {checklistIcon}
 

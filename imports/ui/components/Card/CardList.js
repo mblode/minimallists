@@ -4,7 +4,7 @@ import CurrentStore from "../../stores/CurrentStore";
 
 import CardOuter from "./CardOuter";
 
-const CardList = SortableContainer(({ refetch, cards }) => {
+const CardList = SortableContainer(({ cards }) => {
     let disabled = false;
     if (CurrentStore.cur.active == "open") {
         disabled = true;
@@ -17,7 +17,6 @@ const CardList = SortableContainer(({ refetch, cards }) => {
                     key={index}
                     index={index}
                     card={card}
-                    refetch={refetch}
                     outsideClickIgnoreClass={"ignore"}
                     disabled={disabled}
                 />

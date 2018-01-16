@@ -20,9 +20,6 @@ class CardInput extends Component {
                     _id: this.props.card._id
                 }
             })
-            .then(({ data }) => {
-                this.props.refetch();
-            })
             .catch(error => {
                 console.log(error);
             });
@@ -57,4 +54,9 @@ class CardInput extends Component {
     }
 }
 
-export default graphql(updateCard, { name: "updateCard" })(CardInput);
+export default graphql(updateCard, {
+    name: "updateCard",
+    options: {
+        refetchQueries: ["cardQuery"]
+    }
+})(CardInput);

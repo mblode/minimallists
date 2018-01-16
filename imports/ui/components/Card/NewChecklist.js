@@ -20,9 +20,6 @@ class NewChecklist extends Component {
                     name: ""
                 }
             })
-            .then(({ data }) => {
-                this.props.refetch();
-            })
             .catch(error => {
                 console.log(error);
             });
@@ -40,6 +37,9 @@ class NewChecklist extends Component {
     }
 }
 
-export default graphql(createChecklist, { name: "createChecklist" })(
-    NewChecklist
-);
+export default graphql(createChecklist, {
+    name: "createChecklist",
+    options: {
+        refetchQueries: ["cardQuery"]
+    }
+})(NewChecklist);

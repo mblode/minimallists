@@ -6,7 +6,7 @@ import CardSchema from "../../api/cards/Cards.graphql";
 
 import CardResolvers from "../../api/cards/resolvers";
 
-// hedddddddddddddddsddsss
+// hedddddddddddddddsddsssdd
 const typeDefs = [CardSchema];
 
 const resolvers = merge(CardResolvers);

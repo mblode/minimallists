@@ -10,8 +10,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import SignIn from "./components/Forms/SignIn";
 import SignUp from "./components/Forms/SignUp";
 
-import Home from "./pages/Home";
-import Area from "./pages/Area";
+import Inbox from "./pages/Inbox";
 import List from "./pages/List";
 import Project from "./pages/Project";
 import Logbook from "./pages/Logbook";
@@ -50,7 +49,7 @@ class App extends Component {
                             <Route
                                 exact
                                 path="/"
-                                render={props => <Home {...props} />}
+                                render={props => <Inbox {...props} />}
                             />
 
                             <Route
@@ -61,7 +60,6 @@ class App extends Component {
                             <Route path="/trash" component={Trash} />
 
                             <Route path="/p/:id?" component={Project} />
-                            <Route path="/a/:id?" component={Area} />
 
                             <Route path="/profile" component={Profile} />
                             <Route path="/settings" component={Settings} />

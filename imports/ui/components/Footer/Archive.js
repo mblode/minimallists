@@ -21,9 +21,6 @@ class Archive extends Component {
                     _id: this.props.currentStore.cur.cardId
                 }
             })
-            .then(({ data }) => {
-                this.props.refetch();
-            })
             .catch(error => {
                 console.log(error);
             });
@@ -59,4 +56,9 @@ class Archive extends Component {
     }
 }
 
-export default graphql(deleteCard, { name: "deleteCard" })(Archive);
+export default graphql(deleteCard, {
+    name: "deleteCard",
+    options: {
+        refetchQueries: ["cardQuery"]
+    }
+})(Archive);

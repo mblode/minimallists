@@ -33,9 +33,6 @@ class Popover extends Component {
                     _id: this.props.currentStore.cur.listId
                 }
             })
-            .then(({ data }) => {
-                this.props.refetch();
-            })
             .catch(error => {
                 console.log(error);
             });
@@ -76,4 +73,9 @@ class Popover extends Component {
     }
 }
 
-export default graphql(deleteList, { name: "deleteList" })(Popover);
+export default graphql(deleteList, {
+    name: "deleteList",
+    options: {
+        refetchQueries: ["sidebarQuery"]
+    }
+})(Popover);

@@ -21,7 +21,6 @@ class Footer extends Component {
                 <div>
                     <NewCard
                         currentStore={CurrentStore}
-                        refetch={this.props.refetch}
                         buttonState={this.props.newCard}
                     />
                     <When buttonState="disabled" />
@@ -34,7 +33,6 @@ class Footer extends Component {
                 <div>
                     <NewCard
                         currentStore={CurrentStore}
-                        refetch={this.props.refetch}
                         buttonState={this.props.newCard}
                     />
                     <When
@@ -57,7 +55,6 @@ class Footer extends Component {
                     />
                     <Archive
                         currentStore={CurrentStore}
-                        refetch={this.props.refetch}
                         buttonState={this.props.archive}
                     />
                 </div>

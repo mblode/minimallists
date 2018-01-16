@@ -10,7 +10,7 @@ class LogbookItem extends Component {
                 <NavLink to="/logbook">
                     <div className="sidebar-nav-link">
                         <Icon name="book" color="#212529" size="20px" />
-                        <span>Logbook</span>
+                        <span className="sidebar-nav-name">Logbook</span>
                     </div>
                 </NavLink>
             </div>
@@ -18,5 +18,4 @@ class LogbookItem extends Component {
     }
 }
 
-LogbookItem = withRouter(LogbookItem);
 export default LogbookItem;

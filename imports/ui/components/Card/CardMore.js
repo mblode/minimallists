@@ -27,9 +27,6 @@ class CardMore extends Component {
                     _id: this.props.card._id
                 }
             })
-            .then(({ data }) => {
-                this.props.refetch();
-            })
             .catch(error => {
                 console.log(error);
             });
@@ -50,14 +47,16 @@ class CardMore extends Component {
 
                 <When />
                 {/* <Labels /> */}
-                <NewChecklist
-                    card={this.props.card}
-                    refetch={this.props.refetch}
-                />
+                <NewChecklist card={this.props.card} />
                 <Deadline />
             </div>
         );
     }
 }
 
-export default graphql(updateCardNotes, { name: "updateCardNotes" })(CardMore);
+export default graphql(updateCardNotes, {
+    name: "updateCardNotes",
+    options: {
+        refetchQueries: ["cardQuery"]
+    }
+})(CardMore);
