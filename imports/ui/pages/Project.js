@@ -1,55 +1,112 @@
 import React, { Component } from "react";
-
-import Textarea from "../components/Base/ExpandingTextarea";
-import Footer from "../components/Footer/Footer";
-import CardSortable from "../components/Card/CardSortable";
-import Icon from "../components/Base/Icon";
-
-import { graphql } from "react-apollo";
+import { graphql, compose } from "react-apollo";
 import gql from "graphql-tag";
 
+import CurrentStore from "../stores/CurrentStore";
+
+import Footer from "../components/Footer/Footer";
+import Header from "../components/Header/Header";
+import Sidebar from "../components/Sidebar/Sidebar";
+
+import CardSortable from "../components/Card/CardSortable";
+import Icon from "../components/Base/Icon";
+import Popover from "../components/Popover/Popover";
+
 class Project extends Component {
+    updateProject = () => {
+        this.props
+            .updateProject({
+                variables: {
+                    name: this.projectPageName.value,
+                    _id: this.props.project._id
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
+
     render() {
-        const { data } = this.props;
-        if (data.loading) return null;
+        CurrentStore.currentProject(this.props.match.params.id);
+
+        const { loading, project, cards } = this.props;
+        if (loading) return null;
         return (
-            <div>
-                <div className="page">
-                    <div className="project-title-group">
-                        <Icon name="folder" color="#212529" />
-
-                        <input
-                            type="text"
-                            placeholder="New Project"
-                            className="project-title"
-                        />
-                    </div>
-
-                    <Textarea
-                        rows="3"
-                        maxLength="3000"
-                        placeholder="Notes"
-                        className="project-notes"
-                    />
-
-                    <CardSortable cards={data.cards} />
+            <div className="row flex-xl-nowrap no-gutters">
+                <div className="col-12 col-md-3 col-xl-2 sidebar">
+                    <Sidebar />
                 </div>
 
-                <Footer newHeading="visible" />
+                <main className="col-12 col-md-9 col-xl-10 bd-content">
+                    <Header client={this.props.client} />
+
+                    <div className="page">
+                        <div className="project-title-group area-title-group">
+                            <Icon name="folder" color="#212529" />
+
+                            <input
+                                type="text"
+                                ref={input => (this.projectPageName = input)}
+                                onChange={this.updateProject}
+                                placeholder="New Project"
+                                className="project-title"
+                                value={project.name}
+                            />
+                            <Popover currentStore={CurrentStore} />
+                        </div>
+                        <CardSortable cards={cards} />
+                    </div>
+
+                    <Footer />
+                </main>
             </div>
         );
     }
 }
 
 const cardQuery = gql`
-    {
+    query cardQuery($id: String!) {
+        project(_id: $id) {
+            _id
+            name
+        }
         cards {
             _id
             name
             completed
             notes
+            checklists {
+                _id
+                name
+                completed
+            }
         }
     }
 `;
 
-export default graphql(cardQuery)(Project);
+const updateProject = gql`
+    mutation updateProject($name: String, $_id: String!) {
+        updateProject(name: $name, _id: $_id) {
+            name
+            _id
+        }
+    }
+`;
+
+export default compose(
+    graphql(cardQuery, {
+        options: ownProps => ({
+            variables: {
+                id: ownProps.match.params.id,
+                skip: 0
+            }
+        }),
+        props: ({ data }) => ({ ...data })
+    }),
+    graphql(updateProject, {
+        name: "updateProject",
+        options: {
+            refetchQueries: ["cardQuery"]
+        }
+    })
+)(Project);

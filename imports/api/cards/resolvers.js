@@ -2,87 +2,99 @@ import { Cards, Checklists, Labels, Lists, Projects } from "./cards";
 
 export default {
     Query: {
-        card: async (root, { _id }) => {
-            return await Cards.findOne(_id);
+        card(obj, { _id }, { userId }) {
+            return Cards.findOne(_id);
         },
-        cards: async () => {
-            return await Cards.find({}).fetch();
+        cards(obj, args, { userId }) {
+            return Cards.find({ userId }).fetch();
         },
-        checklist: async (root, { _id }) => {
-            return await Checklists.findOne(_id);
+        checklist(obj, { _id }, { userId }) {
+            return Checklists.findOne(_id);
         },
-        checklists: async (root, { _id }) => {
-            return await Checklists.find({}).fetch();
+        checklists(obj, { _id }, { userId }) {
+            return Checklists.find({ userId }).fetch();
         },
-        labels: async () => {
-            return await Labels.find({}).fetch();
+        labels(obj, { _id }, { userId }) {
+            return Labels.find({}).fetch();
         },
-        list: async (root, { _id }) => {
-            return await Lists.findOne(_id);
+        list(obj, { _id }, { userId }) {
+            return Lists.findOne(_id);
         },
-        lists: async () => {
-            return await Lists.find({}).fetch();
+        lists(obj, { _id }, { userId }) {
+            return Lists.find({ userId }).fetch();
         },
-        project: async (root, { _id }) => {
-            return await Projects.findOne(_id);
+        project(obj, { _id }, { userId }) {
+            return Projects.findOne(_id);
         },
-        projects: async () => {
-            return await Projects.find({}).fetch();
+        projects(obj, { _id }, { userId }) {
+            return Projects.find({ userId }).fetch();
         }
     },
 
     Card: {
-        checklists: async ({ _id }) => {
-            return await Checklists.find({ cardId: _id }).fetch();
+        checklists({ _id }) {
+            return Checklists.find({ cardId: _id }).fetch();
         }
     },
 
     Checklist: {
-        card: async ({ cardId }) => {
-            return prepare(await Cards.findOne(ObjectId(cardId)));
+        card({ cardId }) {
+            return Cards.findOne(ObjectId(cardId));
         }
     },
 
     Mutation: {
-        createCard: async (root, args, context, info) => {
-            const res = Cards.insert(args);
+        createCard(obj, { name, listId }, { userId }) {
+            const res = Cards.insert({
+                name,
+                listId,
+                userId
+            });
             return Cards.findOne(res);
         },
-        updateCard(obj, { name, _id }, context) {
-            const cardId = Cards.update(_id, {
+        updateCard(obj, { name, _id }, { userId }) {
+            const cardId = Cards.update(userId, _id, {
                 $set: {
                     name
                 }
             });
             return Cards.findOne(cardId);
         },
-        updateCardCompleted(obj, { completed, _id }, context) {
-            const cardId = Cards.update(_id, {
+        updateCardCompleted(obj, { completed, _id }, { userId }) {
+            const cardId = Cards.update(userId, _id, {
                 $set: {
                     completed
                 }
             });
             return Cards.findOne(cardId);
         },
-        updateCardNotes(obj, { notes, _id }, context) {
-            const cardId = Cards.update(_id, {
+        updateCardNotes(obj, { notes, _id }, { userId }) {
+            const cardId = Cards.update(userId, _id, {
                 $set: {
                     notes
                 }
             });
             return Cards.findOne(cardId);
         },
-        updateCardArchived(obj, { archived, _id }, context) {
-            const cardId = Cards.update(_id, {
+        updateCardArchived(obj, { archived, _id }, { userId }) {
+            const cardId = Cards.update(userId, _id, {
                 $set: {
                     archived
                 }
             });
             return Cards.findOne(cardId);
         },
-        deleteCard(obj, { _id }, context) {
+        deleteCard(obj, { _id }, { userId }) {
             const cardId = Cards.remove({
                 _id
+            });
+            return Cards.findOne(cardId);
+        },
+        updateCardArchived(obj, { pos, _id }, { userId }) {
+            const cardId = Cards.update(userId, _id, {
+                $set: {
+                    pos
+                }
             });
             return Cards.findOne(cardId);
         },
@@ -92,28 +104,35 @@ export default {
         //     });
         //     return Cards.find(cardId).fetch();
         // },
-        createChecklist: async (root, args) => {
-            const res = Checklists.insert(args);
+        createChecklist(obj, { cardId, name }, { userId }) {
+            const res = Checklists.insert({
+                name,
+                cardId,
+                userId
+            });
             return Checklists.findOne(res);
         },
-        updateChecklist(obj, { name, _id }, context) {
-            const checklistId = Checklists.update(_id, {
+        updateChecklist(obj, { name, _id }, { userId }) {
+            const checklistId = Checklists.update(userId, _id, {
                 name
             });
             return Checklists.findOne(checklistId);
         },
-        deleteChecklist(obj, { _id }, context) {
+        deleteChecklist(obj, { _id }, { userId }) {
             const checklistId = Checklists.remove({
                 _id
             });
             return Checklists.findOne(checklistId);
         },
-        createList: async (root, args) => {
-            const res = Lists.insert(args);
+        createList(obj, { name }, { userId }) {
+            const res = Lists.insert({
+                name,
+                userId
+            });
             return Lists.findOne(res);
         },
-        updateList(obj, { name, _id }, context) {
-            const listId = Lists.update(_id, {
+        updateList(obj, { name, _id }, { userId }) {
+            const listId = Lists.update(userId, _id, {
                 $set: {
                     name
                 }
@@ -126,37 +145,42 @@ export default {
             });
             return Lists.findOne(listId);
         },
-        createProject: async (root, args) => {
-            const res = Projects.insert(args);
+        createProject(obj, { name }, { userId }) {
+            const res = Projects.insert({
+                name,
+                userId
+
+            });
             return Projects.findOne(res);
         },
-        updateProject(obj, { name, _id }, context) {
-            const projectId = Projects.update(_id, {
+        updateProject(obj, { name, _id }, { userId }) {
+            const projectId = Projects.update(userId, _id, {
                 $set: {
                     name
                 }
             });
             return Projects.findOne(projectId);
         },
-        deleteProject(obj, { _id }, context) {
+        deleteProject(obj, { _id }, { userId }) {
             const projectId = Projects.remove({
                 _id
             });
             return Projects.findOne(projectId);
         },
-        createLabel(obj, { name }, context) {
+        createLabel(obj, { name }, { userId }) {
             const labelId = Labels.insert({
+                name,
+                userId
+            });
+            return Labels.findOne(labelId);
+        },
+        updateLabel(obj, { name, _id }, { userId }) {
+            const labelId = Labels.update(userId, _id, {
                 name
             });
             return Labels.findOne(labelId);
         },
-        updateLabel(obj, { name, _id }, context) {
-            const labelId = Labels.update(_id, {
-                name
-            });
-            return Labels.findOne(labelId);
-        },
-        deleteLabel(obj, { _id }, context) {
+        deleteLabel(obj, { _id }, { userId }) {
             const labelId = Labels.remove({
                 _id
             });

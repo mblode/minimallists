@@ -21,19 +21,6 @@ const createProject = gql`
 `;
 
 class NewList extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { active: false };
-    }
-
-    openPopover = () => {
-        this.setState({ active: true });
-    };
-
-    closePopover = () => {
-        this.setState({ active: false });
-    };
-
     newList = () => {
         this.props
             .createList({
@@ -90,7 +77,7 @@ export default compose(
     graphql(createProject, {
         name: "createProject",
         options: {
-            refetchQueries: ["cardQuery"]
+            refetchQueries: ["sidebarQuery"]
         }
     })
 )(NewList);

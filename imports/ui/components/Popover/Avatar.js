@@ -1,18 +1,32 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Route, Redirect } from "react-router-dom";
 import gravatarUrl from "gravatar-url";
 
 class Avatar extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { active: false };
+        this.state = {
+            active: false,
+            fireRedirect: false
+        };
     }
+
+    signOutUser = e => {
+        e.preventDefault();
+
+        Meteor.logout();
+        this.props.client.resetStore();
+
+        this.setState({ fireRedirect: true });
+    };
 
     click() {
         this.setState({ active: !this.state.active });
     }
 
     render() {
+        const { fireRedirect } = this.state;
+
         const email = "m.blode@gmail.com";
         const image = gravatarUrl(email);
 
@@ -85,12 +99,16 @@ class Avatar extends React.Component {
                                 <div className="popover-hr" />
 
                                 <a
-                                    href=""
+                                    href="#"
                                     className="account-menu-item"
-                                    onClick={this.props.onClickSignOut}
+                                    onClick={this.signOutUser}
                                 >
                                     Sign out
                                 </a>
+
+                                {fireRedirect && (
+                                    <Redirect to="/signin?src=signout" />
+                                )}
                             </div>
                         </div>
                     </nav>

@@ -9,7 +9,6 @@ import LogbookItem from "./LogbookItem";
 import ProjectItem from "./ProjectItem";
 import TrashItem from "./TrashItem";
 
-import NewProject from "./NewProject";
 import NewList from "./NewList";
 
 class Sidebar extends Component {

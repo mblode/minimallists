@@ -5,6 +5,9 @@ import gql from "graphql-tag";
 import CurrentStore from "../stores/CurrentStore";
 
 import Footer from "../components/Footer/Footer";
+import Header from "../components/Header/Header";
+import Sidebar from "../components/Sidebar/Sidebar";
+
 import CardSortable from "../components/Card/CardSortable";
 import Icon from "../components/Base/Icon";
 import Popover from "../components/Popover/Popover";
@@ -29,33 +32,41 @@ class List extends Component {
         const { loading, list, cards } = this.props;
         if (loading) return null;
         return (
-            <div>
-                <div className="page">
-                    <div className="project-title-group area-title-group">
-                        <Icon name="inbox" color="#212529" />
-
-                        <input
-                            type="text"
-                            ref={input => (this.listPageName = input)}
-                            onChange={this.updateList}
-                            placeholder="New List"
-                            className="project-title"
-                            value={list.name}
-                        />
-                        <Popover currentStore={CurrentStore} />
-                    </div>
-                    <CardSortable cards={cards} />
+            <div className="row flex-xl-nowrap no-gutters">
+                <div className="col-12 col-md-3 col-xl-2 sidebar">
+                    <Sidebar />
                 </div>
 
-                <Footer />
+                <main className="col-12 col-md-9 col-xl-10 bd-content">
+                    <Header client={this.props.client} />
+
+                    <div className="page">
+                        <div className="project-title-group area-title-group">
+                            <Icon name="inbox" color="#212529" />
+
+                            <input
+                                type="text"
+                                ref={input => (this.listPageName = input)}
+                                onChange={this.updateList}
+                                placeholder="New List"
+                                className="project-title"
+                                value={list.name}
+                            />
+                            <Popover currentStore={CurrentStore} />
+                        </div>
+                        <CardSortable cards={cards} />
+                    </div>
+
+                    <Footer />
+                </main>
             </div>
         );
     }
 }
 
 const cardQuery = gql`
-    query cardQuery($slug: String!) {
-        list(_id: $slug) {
+    query cardQuery($id: String!) {
+        list(_id: $id) {
             _id
             name
         }
@@ -84,11 +95,12 @@ const updateList = gql`
 
 export default compose(
     graphql(cardQuery, {
-        options: {
+        options: ownProps => ({
             variables: {
-                slug: "m5bobxPetFpYaRsLa"
+                id: ownProps.match.params.id,
+                skip: 0
             }
-        },
+        }),
         props: ({ data }) => ({ ...data })
     }),
     graphql(updateList, {

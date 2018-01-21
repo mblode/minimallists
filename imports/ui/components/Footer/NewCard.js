@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import Icon from "../Base/Icon";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
+import CurrentStore from "../../stores/CurrentStore";
 
 const createCard = gql`
-    mutation createCard($name: String!) {
-        createCard(name: $name) {
+    mutation createCard($listId: String, $name: String!) {
+        createCard(listId: $listId, name: $name) {
             _id
         }
     }
@@ -16,7 +17,8 @@ class NewCard extends Component {
         this.props
             .createCard({
                 variables: {
-                    name: ""
+                    name: "",
+                    listId: CurrentStore.cur.listId
                 }
             })
             .catch(error => {

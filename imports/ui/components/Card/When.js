@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Icon from "../Base/Icon";
-import ThingsCalendar from "things-calendar";
 import { Manager, Target, Popper, Arrow } from "react-popper";
 
 class When extends Component {
@@ -38,11 +37,7 @@ class When extends Component {
                     }
                 >
                     <div className="popover-body">
-                        <ThingsCalendar
-                            ref={calendar => (this.calendar = calendar)}
-                            show={true}
-                            onSelect={date => console.log(date)}
-                        />;
+                        <h1>Hello</h1>
                     </div>
                     <Arrow className="arrow" />
                 </Popper>

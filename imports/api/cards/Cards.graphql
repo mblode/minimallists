@@ -65,6 +65,7 @@ type Mutation {
     updateCardNotes(_id: String!, notes: String): Card
     updateCardArchived(_id: String!, archived: Boolean): Card
     deleteCard(_id: String!): Card
+    updateCardPos(_id: String!, pos: Float): Card
     # addChecklistToCard(_id: String!): Card
     # addLabelToCard(_id: String!): Card
     # removeChecklistFromCard(_id: String!): Card

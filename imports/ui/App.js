@@ -1,14 +1,17 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import { observer } from "mobx-react";
+import { Accounts } from "meteor/accounts-base";
+import { withApollo } from "react-apollo";
+import { Tracker } from "meteor/tracker";
 
 import CurrentStore from "./stores/CurrentStore";
 
-import Header from "./components/Header/Header";
-import Sidebar from "./components/Sidebar/Sidebar";
+import Home from "./pages/Home";
+import Spinner from "./components/Base/Spinner";
 
-import SignIn from "./components/Forms/SignIn";
-import SignUp from "./components/Forms/SignUp";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 
 import Inbox from "./pages/Inbox";
 import List from "./pages/List";
@@ -21,6 +24,20 @@ import Settings from "./pages/Settings";
 
 @observer
 class App extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = { loading: true };
+    }
+
+    componentWillMount() {
+        Tracker.autorun(() => {
+            if (Accounts.loginServicesConfigured()) {
+                this.setState({ loading: false });
+            }
+        });
+    }
+
     componentDidMount() {
         document.body.classList.toggle("open", false);
     }
@@ -30,43 +47,69 @@ class App extends Component {
     }
 
     render() {
+        const { client } = this.props;
+
         if (CurrentStore.cur.active === "open") {
             document.body.classList.toggle("open", true);
         } else {
             document.body.classList.toggle("open", false);
         }
+
         return (
             <div>
                 <BrowserRouter>
-                    <div className="row flex-xl-nowrap no-gutters">
-                        <div className="col-12 col-md-3 col-xl-2 sidebar">
-                            <Sidebar />
-                        </div>
-
-                        <main className="col-12 col-md-9 col-xl-10 bd-content">
-                            <Header />
-
+                    <div>
+                        {this.state.loading ? (
+                            <Spinner />
+                        ) : (
                             <Route
                                 exact
                                 path="/"
-                                render={props => <Inbox {...props} />}
+                                render={() =>
+                                    Meteor.user() ? (
+                                        <Redirect to="/inbox" />
+                                    ) : (
+                                        <Home client={client} />
+                                    )
+                                }
                             />
+                        )}
 
-                            <Route
-                                path="/l/:id"
-                                render={props => <List {...props} />}
-                            />
-                            <Route path="/logbook" component={Logbook} />
-                            <Route path="/trash" component={Trash} />
+                        <Route
+                            path="/signin"
+                            render={props => (
+                                <SignIn client={client} {...props} />
+                            )}
+                        />
+                        <Route
+                            path="/signup"
+                            render={props => (
+                                <SignUp client={client} {...props} />
+                            )}
+                        />
 
-                            <Route path="/p/:id?" component={Project} />
+                        <Route
+                            exact
+                            path="/inbox"
+                            render={props => (
+                                <Inbox client={client} {...props} />
+                            )}
+                        />
 
-                            <Route path="/profile" component={Profile} />
-                            <Route path="/settings" component={Settings} />
+                        <Route
+                            exact
+                            path="/l/:id"
+                            render={props => (
+                                <List client={client} {...props} />
+                            )}
+                        />
+                        <Route path="/logbook" component={Logbook} />
+                        <Route path="/trash" component={Trash} />
 
-                            <Route path="/signin" component={SignIn} />
-                            <Route path="/signup" component={SignUp} />
-                        </main>
+                        <Route path="/p/:id?" component={Project} />
+
+                        <Route path="/profile" component={Profile} />
+                        <Route path="/settings" component={Settings} />
                     </div>
                 </BrowserRouter>
             </div>
@@ -74,4 +117,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default withApollo(App);

@@ -5,7 +5,8 @@ export class CurrentStore {
     cur = {
         cardId: "",
         active: "close",
-        listId: ""
+        listId: "",
+        projectId: ""
     };
 
     currentCard(value) {
@@ -18,6 +19,10 @@ export class CurrentStore {
 
     currentList(value) {
         this.cur.listId = value;
+    }
+
+    currentProject(value) {
+        this.cur.projectId = value;
     }
 }
 
