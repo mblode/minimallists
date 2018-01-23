@@ -4,10 +4,6 @@ import gql from "graphql-tag";
 
 import CurrentStore from "../stores/CurrentStore";
 
-import Footer from "../components/Footer/Footer";
-import Header from "../components/Header/Header";
-import Sidebar from "../components/Sidebar/Sidebar";
-
 import CardSortable from "../components/Card/CardSortable";
 import Icon from "../components/Base/Icon";
 import Popover from "../components/Popover/Popover";
@@ -32,33 +28,21 @@ class Project extends Component {
         const { loading, project, cards } = this.props;
         if (loading) return null;
         return (
-            <div className="row flex-xl-nowrap no-gutters">
-                <div className="col-12 col-md-3 col-xl-2 sidebar">
-                    <Sidebar />
+            <div className="page">
+                <div className="project-title-group area-title-group">
+                    <Icon name="folder" color="#212529" />
+
+                    <input
+                        type="text"
+                        ref={input => (this.projectPageName = input)}
+                        onChange={this.updateProject}
+                        placeholder="New Project"
+                        className="project-title"
+                        value={project.name}
+                    />
+                    <Popover currentStore={CurrentStore} />
                 </div>
-
-                <main className="col-12 col-md-9 col-xl-10 bd-content">
-                    <Header client={this.props.client} />
-
-                    <div className="page">
-                        <div className="project-title-group area-title-group">
-                            <Icon name="folder" color="#212529" />
-
-                            <input
-                                type="text"
-                                ref={input => (this.projectPageName = input)}
-                                onChange={this.updateProject}
-                                placeholder="New Project"
-                                className="project-title"
-                                value={project.name}
-                            />
-                            <Popover currentStore={CurrentStore} />
-                        </div>
-                        <CardSortable cards={cards} />
-                    </div>
-
-                    <Footer />
-                </main>
+                <CardSortable cards={cards} />
             </div>
         );
     }

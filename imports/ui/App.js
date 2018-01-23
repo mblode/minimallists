@@ -7,17 +7,21 @@ import { Tracker } from "meteor/tracker";
 
 import CurrentStore from "./stores/CurrentStore";
 
+import Main from "./layouts/Main";
+import Empty from "./layouts/Empty";
+import NotFound from "./pages/NotFound";
+
 import Home from "./pages/Home";
 import Spinner from "./components/Base/Spinner";
 
-import SignIn from "./pages/SignIn";
-import SignUp from "./pages/SignUp";
-
 import Inbox from "./pages/Inbox";
 import List from "./pages/List";
-import Project from "./pages/Project";
-import Logbook from "./pages/Logbook";
 import Trash from "./pages/Trash";
+import Logbook from "./pages/Logbook";
+import Project from "./pages/Project";
+
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
@@ -67,49 +71,64 @@ class App extends Component {
                                 path="/"
                                 render={() =>
                                     Meteor.user() ? (
-                                        <Redirect to="/inbox" />
+                                        <Redirect to="/l/inbox" />
                                     ) : (
-                                        <Home client={client} />
+                                        <Redirect to="/home" />
                                     )
                                 }
                             />
                         )}
 
-                        <Route
-                            path="/signin"
-                            render={props => (
-                                <SignIn client={client} {...props} />
-                            )}
-                        />
-                        <Route
-                            path="/signup"
-                            render={props => (
-                                <SignUp client={client} {...props} />
-                            )}
-                        />
+                        <Route component={Main}>
+                            <Route
+                                path="/l/inbox"
+                                render={props => (
+                                    <Inbox client={client} {...props} />
+                                )}
+                            />
+                            <Route
+                                path="/l/:id"
+                                render={props => (
+                                    <List client={client} {...props} />
+                                )}
+                            />
+                            <Route
+                                path="/l/logbook"
+                                component={Logbook}
+                            />
+                            <Route
+                                path="/l/trash"
+                                component={Trash}
+                            />
 
-                        <Route
-                            exact
-                            path="/inbox"
-                            render={props => (
-                                <Inbox client={client} {...props} />
-                            )}
-                        />
-
-                        <Route
-                            exact
-                            path="/l/:id"
-                            render={props => (
-                                <List client={client} {...props} />
-                            )}
-                        />
-                        <Route path="/logbook" component={Logbook} />
-                        <Route path="/trash" component={Trash} />
-
-                        <Route path="/p/:id?" component={Project} />
-
-                        <Route path="/profile" component={Profile} />
-                        <Route path="/settings" component={Settings} />
+                            <Route
+                                path="/p/:id"
+                                render={props => (
+                                    <Project client={client} {...props} />
+                                )}
+                            />
+                            <Route path="/profile" component={Profile} />
+                            <Route path="/settings" component={Settings} />
+                        </Route>
+                        <Route component={Empty}>
+                            <Route
+                                path="/home"
+                                component={Home}
+                            />
+                            <Route
+                                path="/signin"
+                                render={props => (
+                                    <SignIn client={client} {...props} />
+                                )}
+                            />
+                            <Route
+                                path="/signup"
+                                render={props => (
+                                    <SignUp client={client} {...props} />
+                                )}
+                            />
+                        </Route>
+                        <Route path="*" component={NotFound} />
                     </div>
                 </BrowserRouter>
             </div>
