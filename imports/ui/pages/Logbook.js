@@ -22,7 +22,7 @@ class Logbook extends Component {
     }
 }
 
-const cardQuery = gql`
+const listQuery = gql`
     {
         cards {
             _id
@@ -38,4 +38,4 @@ const cardQuery = gql`
     }
 `;
 
-export default compose(graphql(cardQuery))(Logbook);
+export default compose(graphql(listQuery))(Logbook);

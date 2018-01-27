@@ -69,7 +69,7 @@ class SignUpForm extends Component {
                     </button>
                 </form>
 
-                {fireRedirect && <Redirect to="/inbox" />}
+                {fireRedirect && <Redirect to="/" />}
             </div>
         );
     }

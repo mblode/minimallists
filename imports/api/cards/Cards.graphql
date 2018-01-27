@@ -1,92 +1,31 @@
 type Query {
-    card(_id: String): Card
     cards: [Card]
-    checklist(_id: String): Checklist
-    checklists: [Checklist]
-    labels: [Label]
-    list(_id: String): List
-    lists: [List]
-    project(_id: String): Project
-    projects: [Project]
 }
 
 type Card {
     _id: String! @isUnique
-    archived: Boolean
+    name: String
+    notes: String
     completed: Boolean
+    archived: Boolean
     due: String
     dueComplete: Boolean
     checklists: [Checklist]
     labels: [Label]
-    listId: String
-    list: List
-    projectId: String
-    project: Project
-    name: String
-    notes: String
-    pos: Float
-}
-
-type Checklist {
-    _id: String! @isUnique
-    cardId: String
-    card: Card
-    name: String!
-    completed: Boolean
-    pos: Float
-}
-
-type Label {
-    _id: String! @isUnique
-    name: String!
-}
-
-type List {
-    _id: String! @isUnique
-    name: String!
-    archived: Boolean
-    pos: Float
-    icon: String
-    cards: [Card]
-}
-
-type Project {
-    _id: String! @isUnique
-    name: String!
-    archived: Boolean
-    pos: Float
-    cards: [Card]
 }
 
 type Mutation {
-    createCard(listId: String, name: String!): Card
+    createCard(name: String!, listId: String!): Card
     updateCard(_id: String!, name: String): Card
     updateCardCompleted(_id: String!, completed: Boolean): Card
     updateCardNotes(_id: String!, notes: String): Card
     updateCardArchived(_id: String!, archived: Boolean): Card
     deleteCard(_id: String!): Card
-    updateCardPos(_id: String!, pos: Float): Card
+    # updateCardPos(_id: String!, pos: Float): Card
     # addChecklistToCard(_id: String!): Card
     # addLabelToCard(_id: String!): Card
     # removeChecklistFromCard(_id: String!): Card
     # removeLabelFromCard(_id: String!): Card
-
-    createChecklist(cardId: String, name: String!): Checklist
-    updateChecklist(_id: String!, name: String!): Checklist
-    deleteChecklist(_id: String!): Checklist
-    # updateChecklistState(_id: String!, completed: Boolean): Checklist
-
-    createLabel(name: String!): Label
-    deleteLabel(_id: String!): Label
-    updateLabel(_id: String!, name: String): Label
-
-    createList(name: String!): List
-    updateList(_id: String!, name: String): List
-    deleteList(_id: String!): List
-
-    createProject(name: String!): Project
-    updateProject(_id: String!, name: String): Project
-    deleteProject(_id: String!): Project
 }
 
 schema {

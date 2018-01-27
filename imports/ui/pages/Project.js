@@ -48,8 +48,8 @@ class Project extends Component {
     }
 }
 
-const cardQuery = gql`
-    query cardQuery($id: String!) {
+const listQuery = gql`
+    query listQuery($id: String!) {
         project(_id: $id) {
             _id
             name
@@ -78,7 +78,7 @@ const updateProject = gql`
 `;
 
 export default compose(
-    graphql(cardQuery, {
+    graphql(listQuery, {
         options: ownProps => ({
             variables: {
                 id: ownProps.match.params.id,
@@ -90,7 +90,7 @@ export default compose(
     graphql(updateProject, {
         name: "updateProject",
         options: {
-            refetchQueries: ["cardQuery"]
+            refetchQueries: ["listQuery"]
         }
     })
 )(Project);

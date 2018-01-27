@@ -8,21 +8,9 @@ class Header extends Component {
     render() {
         let navigation = null;
 
-        const user = Meteor.user();
-
-        console.log(user);
-
         if (this.props.noNav) {
             navigation = null;
-        } else if (user) {
-            navigation = (
-                <ul className="nav navbar-nav ml-auto">
-                    <li className="nav-item">
-                        <Avatar client={this.props.client} />
-                    </li>
-                </ul>
-            );
-        } else {
+        } else if (!this.props.user) {
             navigation = (
                 <ul className="nav ml-auto">
                     <li className="nav-item">
@@ -34,6 +22,17 @@ class Header extends Component {
                         <NavLink exact to="/signup" className="nav-link">
                             <span>Sign Up</span>
                         </NavLink>
+                    </li>
+                </ul>
+            );
+        } else if (this.props.user._id) {
+            navigation = (
+                <ul className="nav navbar-nav ml-auto">
+                    <li className="nav-item">
+                        <Avatar
+                            client={this.props.client}
+                            email={this.props.user.email}
+                        />
                     </li>
                 </ul>
             );

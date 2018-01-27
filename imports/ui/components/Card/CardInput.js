@@ -57,6 +57,6 @@ class CardInput extends Component {
 export default graphql(updateCard, {
     name: "updateCard",
     options: {
-        refetchQueries: ["cardQuery"]
+        refetchQueries: ["listQuery"]
     }
 })(CardInput);

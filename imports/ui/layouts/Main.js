@@ -3,7 +3,7 @@ import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
 import Sidebar from "../components/Sidebar/Sidebar";
 
-class MainLayout extends Component {
+class Main extends Component {
     render() {
         return (
             <div className="row flex-xl-nowrap no-gutters">
@@ -12,13 +12,13 @@ class MainLayout extends Component {
                 </div>
 
                 <main className="col-12 col-md-9 col-xl-10 bd-content">
-                    <Header client={this.props.client} />
+                    <Header client={this.props.client} user={this.props.user} />
                     {this.props.children}
-                </main>
 
-                <Footer />
+                    <Footer />
+                </main>
             </div>
         );
     }
 }
-export default MainLayout;
+export default Main;

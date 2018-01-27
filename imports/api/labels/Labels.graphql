@@ -1,0 +1,14 @@
+extend type Query {
+    labels: [Label]
+}
+
+type Label {
+    _id: String! @isUnique
+    name: String!
+}
+
+extend type Mutation {
+    createLabel(name: String!): Label
+    deleteLabel(_id: String!): Label
+    updateLabel(_id: String!, name: String): Label
+}

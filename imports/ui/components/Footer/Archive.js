@@ -59,6 +59,6 @@ class Archive extends Component {
 export default graphql(deleteCard, {
     name: "deleteCard",
     options: {
-        refetchQueries: ["cardQuery"]
+        refetchQueries: ["listQuery"]
     }
 })(Archive);

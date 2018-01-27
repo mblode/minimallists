@@ -4,8 +4,8 @@ import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 
 const createChecklist = gql`
-    mutation createChecklist($cardId: String, $name: String!) {
-        createChecklist(cardId: $cardId, name: $name) {
+    mutation createChecklist($name: String!, $cardId: String!) {
+        createChecklist(name: $name, cardId: $cardId) {
             _id
         }
     }
@@ -13,11 +13,12 @@ const createChecklist = gql`
 
 class NewChecklist extends Component {
     createChecklist = () => {
+        console.log("clicked");
         this.props
             .createChecklist({
                 variables: {
-                    cardId: this.props.card._id,
-                    name: ""
+                    name: "sdsdsdsd",
+                    cardId: this.props.cardId
                 }
             })
             .catch(error => {
@@ -28,8 +29,8 @@ class NewChecklist extends Component {
     render() {
         return (
             <button
-                onClick={this.createChecklist}
                 className="btn btn-sm footer-button"
+                onClick={() => this.createChecklist()}
             >
                 <Icon name="list" color="#6c757d" size="16px" />
             </button>
@@ -40,6 +41,6 @@ class NewChecklist extends Component {
 export default graphql(createChecklist, {
     name: "createChecklist",
     options: {
-        refetchQueries: ["cardQuery"]
+        refetchQueries: ["listQuery"]
     }
 })(NewChecklist);

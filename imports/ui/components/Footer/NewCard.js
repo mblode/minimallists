@@ -57,6 +57,6 @@ class NewCard extends Component {
 export default graphql(createCard, {
     name: "createCard",
     options: {
-        refetchQueries: ["cardQuery"]
+        refetchQueries: ["listQuery"]
     }
 })(NewCard);

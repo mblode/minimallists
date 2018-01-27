@@ -27,8 +27,7 @@ class Avatar extends React.Component {
     render() {
         const { fireRedirect } = this.state;
 
-        const email = "m.blode@gmail.com";
-        const image = gravatarUrl(email);
+        const image = gravatarUrl(this.props.email);
 
         const username = "mblode";
         return (

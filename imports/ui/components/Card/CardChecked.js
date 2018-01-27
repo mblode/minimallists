@@ -30,7 +30,7 @@ class CardChecked extends Component {
             <input
                 className="card-item-check"
                 type="checkbox"
-                checked={this.props.card.completed}
+                defaultChecked={this.props.card.completed}
                 onChange={this.updateCard}
             />
         );
@@ -40,6 +40,6 @@ class CardChecked extends Component {
 export default graphql(updateCardCompleted, {
     name: "updateCardCompleted",
     options: {
-        refetchQueries: ["cardQuery"]
+        refetchQueries: ["listQuery"]
     }
 })(CardChecked);

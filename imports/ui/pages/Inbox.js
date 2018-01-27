@@ -24,12 +24,8 @@ class Inbox extends Component {
     }
 }
 
-const cardQuery = gql`
-    query cardQuery {
-        lists {
-            _id
-            name
-        }
+const listQuery = gql`
+    query listQuery {
         cards {
             _id
             name
@@ -44,4 +40,4 @@ const cardQuery = gql`
     }
 `;
 
-export default graphql(cardQuery)(Inbox);
+export default graphql(listQuery)(Inbox);

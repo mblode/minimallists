@@ -3,7 +3,7 @@ import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 
 import Textarea from "../Base/ExpandingTextarea";
-import ChecklistList from "../Checklist/ChecklistList";
+import ChecklistSortable from "../Checklist/ChecklistSortable";
 import When from "./When";
 import Labels from "./Labels";
 import NewChecklist from "./NewChecklist";
@@ -43,11 +43,12 @@ class CardMore extends Component {
                     onChange={this.updateNotes}
                     value={this.props.card.notes}
                 />
-                <ChecklistList checklists={this.props.card.checklists} />
 
-                <When />
+                <ChecklistSortable checklists={this.props.card.checklists} />
+
+                {/* <When /> */}
                 {/* <Labels /> */}
-                <NewChecklist card={this.props.card} />
+                <NewChecklist cardId={this.props.card._id} />
                 <Deadline />
             </div>
         );
@@ -57,6 +58,6 @@ class CardMore extends Component {
 export default graphql(updateCardNotes, {
     name: "updateCardNotes",
     options: {
-        refetchQueries: ["cardQuery"]
+        refetchQueries: ["listQuery"]
     }
 })(CardMore);

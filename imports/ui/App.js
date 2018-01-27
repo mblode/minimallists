@@ -4,11 +4,12 @@ import { observer } from "mobx-react";
 import { Accounts } from "meteor/accounts-base";
 import { withApollo } from "react-apollo";
 import { Tracker } from "meteor/tracker";
+import { graphql } from "react-apollo";
+import gql from "graphql-tag";
 
 import CurrentStore from "./stores/CurrentStore";
 
 import Main from "./layouts/Main";
-import Empty from "./layouts/Empty";
 import NotFound from "./pages/NotFound";
 
 import Home from "./pages/Home";
@@ -28,20 +29,6 @@ import Settings from "./pages/Settings";
 
 @observer
 class App extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = { loading: true };
-    }
-
-    componentWillMount() {
-        Tracker.autorun(() => {
-            if (Accounts.loginServicesConfigured()) {
-                this.setState({ loading: false });
-            }
-        });
-    }
-
     componentDidMount() {
         document.body.classList.toggle("open", false);
     }
@@ -51,7 +38,31 @@ class App extends Component {
     }
 
     render() {
-        const { client } = this.props;
+        const { loading, client, user } = this.props;
+        let indexRedirect = null;
+        if (loading) {
+            return null;
+        } else if (!user) {
+            indexRedirect = (
+                <Route exact path="/" render={() => <Home user={user} />} />
+            );
+        } else {
+            indexRedirect = (
+                <Route
+                    exact
+                    path="/"
+                    render={props =>
+                        user._id ? (
+                            <Main client={client} user={user}>
+                                <Inbox />
+                            </Main>
+                        ) : (
+                            <Home user={user} />
+                        )
+                    }
+                />
+            );
+        }
 
         if (CurrentStore.cur.active === "open") {
             document.body.classList.toggle("open", true);
@@ -63,72 +74,41 @@ class App extends Component {
             <div>
                 <BrowserRouter>
                     <div>
-                        {this.state.loading ? (
-                            <Spinner />
-                        ) : (
-                            <Route
-                                exact
-                                path="/"
-                                render={() =>
-                                    Meteor.user() ? (
-                                        <Redirect to="/l/inbox" />
-                                    ) : (
-                                        <Redirect to="/home" />
-                                    )
-                                }
-                            />
-                        )}
+                        {indexRedirect}
 
-                        <Route component={Main}>
-                            <Route
-                                path="/l/inbox"
-                                render={props => (
-                                    <Inbox client={client} {...props} />
-                                )}
-                            />
-                            <Route
-                                path="/l/:id"
-                                render={props => (
-                                    <List client={client} {...props} />
-                                )}
-                            />
-                            <Route
-                                path="/l/logbook"
-                                component={Logbook}
-                            />
-                            <Route
-                                path="/l/trash"
-                                component={Trash}
-                            />
+                        <Route
+                            path="/l/:id"
+                            render={props => (
+                                <Main client={client} user={user}>
+                                    <List />
+                                </Main>
+                            )}
+                        />
+                        <Route path="/l/logbook" component={Logbook} />
+                        <Route path="/l/trash" component={Trash} />
 
-                            <Route
-                                path="/p/:id"
-                                render={props => (
-                                    <Project client={client} {...props} />
-                                )}
-                            />
-                            <Route path="/profile" component={Profile} />
-                            <Route path="/settings" component={Settings} />
-                        </Route>
-                        <Route component={Empty}>
-                            <Route
-                                path="/home"
-                                component={Home}
-                            />
-                            <Route
-                                path="/signin"
-                                render={props => (
-                                    <SignIn client={client} {...props} />
-                                )}
-                            />
-                            <Route
-                                path="/signup"
-                                render={props => (
-                                    <SignUp client={client} {...props} />
-                                )}
-                            />
-                        </Route>
-                        <Route path="*" component={NotFound} />
+                        <Route path="/p/:id" render={props => <Project />} />
+                        <Route
+                            path="/profile"
+                            component={Profile}
+                            user={user}
+                        />
+                        <Route
+                            path="/settings"
+                            component={Settings}
+                            user={user}
+                        />
+
+                        <Route
+                            path="/signin"
+                            render={props => (
+                                <SignIn client={client} {...props} />
+                            )}
+                        />
+                        <Route
+                            path="/signup"
+                            render={props => <SignUp client={client} />}
+                        />
                     </div>
                 </BrowserRouter>
             </div>
@@ -136,4 +116,15 @@ class App extends Component {
     }
 }
 
-export default withApollo(App);
+const userQuery = gql`
+    query User {
+        user {
+            _id
+            email
+        }
+    }
+`;
+
+export default graphql(userQuery, {
+    props: ({ data }) => ({ ...data })
+})(withApollo(App));

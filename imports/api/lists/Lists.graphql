@@ -1,0 +1,30 @@
+extend type Query {
+    list(_id: String): List
+    lists: [List]
+    project(_id: String): Project
+    projects: [Project]
+}
+
+type List {
+    _id: String! @isUnique
+    name: String!
+    archived: Boolean
+    cards: [Card]
+}
+
+type Project {
+    _id: String! @isUnique
+    name: String!
+    archived: Boolean
+    cards: [Card]
+}
+
+extend type Mutation {
+    createList(name: String!): List
+    updateList(_id: String!, name: String): List
+    deleteList(_id: String!): List
+
+    createProject(name: String!): Project
+    updateProject(_id: String!, name: String): Project
+    deleteProject(_id: String!): Project
+}
