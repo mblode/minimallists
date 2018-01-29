@@ -42,7 +42,7 @@ class List extends Component {
                     />
                     <Popover currentStore={CurrentStore} />
                 </div>
-                <CardSortable cards={cards} />
+                <CardSortable cards={list.cards} />
             </div>
         );
     }
@@ -53,16 +53,16 @@ const listQuery = gql`
         list(_id: $id) {
             _id
             name
-        }
-        cards {
-            _id
-            name
-            completed
-            notes
-            checklists {
+            cards(completed: false, archived: false) {
                 _id
                 name
                 completed
+                notes
+                checklists {
+                    _id
+                    name
+                    completed
+                }
             }
         }
     }

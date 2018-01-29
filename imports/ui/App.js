@@ -42,10 +42,6 @@ class App extends Component {
         let indexRedirect = null;
         if (loading) {
             return null;
-        } else if (!user) {
-            indexRedirect = (
-                <Route exact path="/" render={() => <Home user={user} />} />
-            );
         } else {
             indexRedirect = (
                 <Route
@@ -80,7 +76,7 @@ class App extends Component {
                             path="/l/:id"
                             render={props => (
                                 <Main client={client} user={user}>
-                                    <List />
+                                    <List {...props} />
                                 </Main>
                             )}
                         />

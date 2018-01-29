@@ -3,8 +3,14 @@ import { Checklists } from "../checklists/checklists";
 
 export default {
     Query: {
-        cards(obj, args, { userId }) {
-            return Cards.find({ userId }).fetch();
+        cards(obj, { completed, archived }, { userId }) {
+            return Cards.find({
+                userId,
+                $and: [
+                    { completed: { $eq: completed } },
+                    { archived: { $eq: archived } }
+                ]
+            }).fetch();
         }
     },
 
@@ -20,6 +26,8 @@ export default {
             const res = Cards.insert({
                 name,
                 listId,
+                completed: false,
+                archived: false,
                 notes: "",
                 userId
             });

@@ -16,7 +16,7 @@ export default {
             return Labels.findOne(labelId);
         },
         updateLabel(obj, { name, _id }, { userId }) {
-            const labelId = Labels.update(userId, _id, {
+            const labelId = Labels.update(_id, {
                 name
             });
             return Labels.findOne(labelId);

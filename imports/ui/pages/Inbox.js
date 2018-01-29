@@ -14,7 +14,7 @@ class Inbox extends Component {
         if (data.loading) return null;
         return (
             <div className="page">
-                <div className="project-title-group area-title-group">
+                <div className="project-title project-title-group area-title-group">
                     <Icon name="inbox" color="#212529" />
                     Icon
                 </div>
@@ -26,7 +26,7 @@ class Inbox extends Component {
 
 const listQuery = gql`
     query listQuery {
-        cards {
+        cards(completed: false, archived: false) {
             _id
             name
             completed

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import { Manager, Target, Popper, Arrow } from "react-popper";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
@@ -15,7 +16,7 @@ const deleteList = gql`
 class Popover extends Component {
     constructor(props) {
         super(props);
-        this.state = { active: false };
+        this.state = { active: false, fireRedirect: false };
     }
 
     openPopover = () => {
@@ -33,16 +34,20 @@ class Popover extends Component {
                     _id: this.props.currentStore.cur.listId
                 }
             })
+            .then(this.setState({ fireRedirect: true }))
             .catch(error => {
                 console.log(error);
             });
     };
 
     render() {
+        const { fireRedirect } = this.state;
+
         return (
             <Manager>
                 <Target>
                     <button
+                        className="btn"
                         onFocus={() => this.openPopover()}
                         onBlur={() => this.closePopover()}
                     >
@@ -62,12 +67,18 @@ class Popover extends Component {
                     }
                 >
                     <div className="popover-body">
-                        <button type="button" onClick={this.deleteList}>
+                        <button
+                            className="btn"
+                            type="button"
+                            onClick={this.deleteList}
+                        >
                             X
                         </button>
                     </div>
                     <Arrow className="arrow" />
                 </Popper>
+
+                {fireRedirect && <Redirect to="/" />}
             </Manager>
         );
     }

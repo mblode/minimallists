@@ -1,13 +1,27 @@
 import { Lists, Projects } from "./lists";
+import { Cards } from "../cards/cards";
 
 export default {
     Query: {
+        list(obj, { _id }, { userId }) {
+            return Lists.findOne(_id);
+        },
         lists(obj, { _id }, { userId }) {
             return Lists.find({ userId }).fetch();
+        },
+        project(obj, { _id }, { userId }) {
+            return Projects.findOne(_id);
         },
         projects(obj, { _id }, { userId }) {
             return Projects.find({ userId }).fetch();
         }
+    },
+
+    List: {
+        cards: list =>
+            Cards.find({
+                listId: list._id
+            }).fetch()
     },
 
     Mutation: {
@@ -19,18 +33,18 @@ export default {
             return Lists.findOne(res);
         },
         updateList(obj, { name, _id }, { userId }) {
-            const listId = Lists.update(userId, _id, {
+            const res = Lists.update(_id, {
                 $set: {
                     name
                 }
             });
-            return Lists.findOne(listId);
+            return Lists.findOne(res);
         },
         deleteList(obj, { _id }, context) {
-            const listId = Lists.remove({
+            const res = Lists.remove({
                 _id
             });
-            return Lists.findOne(listId);
+            return Lists.findOne(res);
         },
         createProject(obj, { name }, { userId }) {
             const res = Projects.insert({
@@ -40,7 +54,7 @@ export default {
             return Projects.findOne(res);
         },
         updateProject(obj, { name, _id }, { userId }) {
-            const projectId = Projects.update(userId, _id, {
+            const projectId = Projects.update(_id, {
                 $set: {
                     name
                 }

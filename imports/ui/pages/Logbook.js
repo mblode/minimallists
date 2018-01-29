@@ -24,7 +24,7 @@ class Logbook extends Component {
 
 const listQuery = gql`
     {
-        cards {
+        cards(completed: true) {
             _id
             name
             completed

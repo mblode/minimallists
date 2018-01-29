@@ -5,8 +5,8 @@ import gql from "graphql-tag";
 import CurrentStore from "../../stores/CurrentStore";
 
 const createCard = gql`
-    mutation createCard($listId: String, $name: String!) {
-        createCard(listId: $listId, name: $name) {
+    mutation createCard($name: String!, $listId: String!) {
+        createCard(name: $name, listId: $listId) {
             _id
         }
     }
