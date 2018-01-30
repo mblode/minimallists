@@ -30,7 +30,7 @@ class List extends Component {
         return (
             <div className="page">
                 <div className="project-title-group area-title-group">
-                    <Icon name="inbox" color="#212529" />
+                    <Icon name="circle" color="#212529" />
 
                     <input
                         type="text"
@@ -53,7 +53,7 @@ const listQuery = gql`
         list(_id: $id) {
             _id
             name
-            cards(completed: false, archived: false) {
+            cards {
                 _id
                 name
                 completed

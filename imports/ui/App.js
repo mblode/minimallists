@@ -80,10 +80,31 @@ class App extends Component {
                                 </Main>
                             )}
                         />
-                        <Route path="/l/logbook" component={Logbook} />
-                        <Route path="/l/trash" component={Trash} />
+                        <Route
+                            path="/logbook"
+                            render={props => (
+                                <Main client={client} user={user}>
+                                    <Logbook {...props} />
+                                </Main>
+                            )}
+                        />
+                        <Route
+                            path="/trash"
+                            render={props => (
+                                <Main client={client} user={user}>
+                                    <Trash {...props} />
+                                </Main>
+                            )}
+                        />
+                        <Route
+                            path="/p/:id"
+                            render={props => (
+                                <Main client={client} user={user}>
+                                    <Project {...props} />
+                                </Main>
+                            )}
+                        />
 
-                        <Route path="/p/:id" render={props => <Project />} />
                         <Route
                             path="/profile"
                             component={Profile}

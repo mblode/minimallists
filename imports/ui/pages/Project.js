@@ -40,9 +40,8 @@ class Project extends Component {
                         className="project-title"
                         value={project.name}
                     />
-                    <Popover currentStore={CurrentStore} />
                 </div>
-                <CardSortable cards={cards} />
+                <CardSortable cards={project.cards} />
             </div>
         );
     }
@@ -53,16 +52,16 @@ const listQuery = gql`
         project(_id: $id) {
             _id
             name
-        }
-        cards {
-            _id
-            name
-            completed
-            notes
-            checklists {
+            cards {
                 _id
                 name
                 completed
+                notes
+                checklists {
+                    _id
+                    name
+                    completed
+                }
             }
         }
     }

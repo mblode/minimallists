@@ -62,7 +62,7 @@ class Footer extends Component {
         }
 
         return (
-            <footer className="col-12 col-md-9 col-xl-10 bd-content footer-main">
+            <footer className="col-12 col-md-9 col-xl-10 bd-content footer-main ignore-react-onclickoutside">
                 <div className="nav justify-content-center">{footerMain}</div>
             </footer>
         );

@@ -23,7 +23,7 @@ class Sidebar extends Component {
                     <ListItem
                         list={list}
                         length={cards.length}
-                        icon="inbox"
+                        icon="circle"
                         key={index}
                     />
                 );
@@ -37,7 +37,7 @@ class Sidebar extends Component {
                     <ProjectItem
                         project={project}
                         length={cards.length}
-                        icon="inbox"
+                        icon="folder"
                         key={index}
                     />
                 );

@@ -3,8 +3,8 @@ import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 
 const updateCardCompleted = gql`
-    mutation updateCardCompleted($completed: Boolean!, $_id: String!) {
-        updateCardCompleted(completed: $completed, _id: $_id) {
+    mutation updateCardCompleted($_id: String!, $completed: Boolean!) {
+        updateCardCompleted(_id: $_id, completed: $completed) {
             completed
             _id
         }
@@ -13,16 +13,18 @@ const updateCardCompleted = gql`
 
 class CardChecked extends Component {
     updateCard = () => {
-        this.props
-            .updateCardCompleted({
-                variables: {
-                    completed: !this.props.card.completed,
-                    _id: this.props.card._id
-                }
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        setTimeout(() => {
+            this.props
+                .updateCardCompleted({
+                    variables: {
+                        _id: this.props.card._id,
+                        completed: !this.props.card.completed
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }, 3000);
     };
 
     render() {

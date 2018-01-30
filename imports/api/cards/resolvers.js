@@ -22,10 +22,11 @@ export default {
     },
 
     Mutation: {
-        createCard(obj, { name, listId }, { userId }) {
+        createCard(obj, { name, listId, projectId }, { userId }) {
             const res = Cards.insert({
                 name,
                 listId,
+                projectId,
                 completed: false,
                 archived: false,
                 notes: "",
@@ -57,7 +58,7 @@ export default {
             });
             return Cards.findOne(cardId);
         },
-        updateCardArchived(obj, { archived, _id }, { userId }) {
+        updateCardArchived(obj, { _id, archived }, { userId }) {
             const cardId = Cards.update(_id, {
                 $set: {
                     archived

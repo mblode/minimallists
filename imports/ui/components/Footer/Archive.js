@@ -4,21 +4,23 @@ import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 import Icon from "../Base/Icon";
 
-const deleteCard = gql`
-    mutation deleteCard($_id: String!) {
-        deleteCard(_id: $_id) {
+const updateCardArchived = gql`
+    mutation updateCardArchived($_id: String!, $archived: Boolean!) {
+        updateCardArchived(_id: $_id, archived: $archived) {
             _id
+            archived
         }
     }
 `;
 
 @observer
 class Archive extends Component {
-    deleteItem = () => {
+    updateCardArchived = () => {
         this.props
-            .deleteCard({
+            .updateCardArchived({
                 variables: {
-                    _id: this.props.currentStore.cur.cardId
+                    _id: this.props.currentStore.cur.cardId,
+                    archived: true
                 }
             })
             .catch(error => {
@@ -32,7 +34,7 @@ class Archive extends Component {
             <button
                 type="button"
                 className="btn btn-sm footer-button"
-                onClick={() => this.deleteItem()}
+                onClick={() => this.updateCardArchived()}
             >
                 {icon}
             </button>
@@ -56,8 +58,8 @@ class Archive extends Component {
     }
 }
 
-export default graphql(deleteCard, {
-    name: "deleteCard",
+export default graphql(updateCardArchived, {
+    name: "updateCardArchived",
     options: {
         refetchQueries: ["listQuery"]
     }

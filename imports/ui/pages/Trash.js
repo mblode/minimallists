@@ -14,7 +14,7 @@ class Trash extends Component {
             <div className="page">
                 <h3 className="list-title">
                     <Icon name="trash-2" color="#212529" />
-                    List
+                    Trash
                 </h3>
 
                 <button className="ml-3 mb-3 btn btn-primary btn-sm">
@@ -29,7 +29,7 @@ class Trash extends Component {
 
 const listQuery = gql`
     {
-        cards {
+        cards(completed: true, archived: true) {
             _id
             name
             completed

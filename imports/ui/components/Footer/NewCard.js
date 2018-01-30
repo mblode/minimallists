@@ -5,8 +5,8 @@ import gql from "graphql-tag";
 import CurrentStore from "../../stores/CurrentStore";
 
 const createCard = gql`
-    mutation createCard($name: String!, $listId: String!) {
-        createCard(name: $name, listId: $listId) {
+    mutation createCard($name: String!, $listId: String!, $projectId: String!) {
+        createCard(name: $name, listId: $listId, projectId: $projectId) {
             _id
         }
     }
@@ -18,7 +18,8 @@ class NewCard extends Component {
             .createCard({
                 variables: {
                     name: "",
-                    listId: CurrentStore.cur.listId
+                    listId: CurrentStore.cur.listId,
+                    projectId: CurrentStore.cur.projectId
                 }
             })
             .catch(error => {

@@ -20,7 +20,22 @@ export default {
     List: {
         cards: list =>
             Cards.find({
-                listId: list._id
+                listId: list._id,
+                $and: [
+                    { completed: { $eq: false } },
+                    { archived: { $eq: false } }
+                ]
+            }).fetch()
+    },
+
+    Project: {
+        cards: project =>
+            Cards.find({
+                projectId: project._id,
+                $and: [
+                    { completed: { $eq: false } },
+                    { archived: { $eq: false } }
+                ]
             }).fetch()
     },
 

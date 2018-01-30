@@ -17,7 +17,6 @@ const CardList = SortableContainer(({ cards }) => {
                     key={index}
                     index={index}
                     card={card}
-                    outsideClickIgnoreClass={"ignore"}
                     disabled={disabled}
                 />
             ))}
