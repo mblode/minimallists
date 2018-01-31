@@ -13,7 +13,7 @@ import ChecklistsResolvers from "../../api/checklists/resolvers";
 import LabelsSchema from "../../api/labels/Labels.graphql";
 import LabelsResolvers from "../../api/labels/resolvers";
 
-// hh
+// ll
 
 const typeDefs = [
     CardsSchema,

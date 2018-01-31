@@ -65,10 +65,6 @@ class ProjectItem extends Component {
                         <span className="sidebar-nav-length">
                             {this.props.length}
                         </span>
-
-                        {/* <button type="button" onClick={this.deleteProject}>
-                            X
-                        </button> */}
                     </div>
                 </NavLink>
             </div>

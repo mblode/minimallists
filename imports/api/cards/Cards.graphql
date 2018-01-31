@@ -1,4 +1,5 @@
 type Query {
+    card(_id: String): Card
     cards(completed: Boolean, archived: Boolean): [Card]
 }
 
@@ -17,10 +18,11 @@ type Card {
 type Mutation {
     createCard(name: String!, listId: String!, projectId: String!): Card
     updateCard(_id: String!, name: String): Card
-    updateCardCompleted(_id: String!, completed: Boolean!): Card
+    updateCardCompleted(_id: String!, completed: Boolean): Card
     updateCardNotes(_id: String!, notes: String): Card
-    updateCardArchived(_id: String!, archived: Boolean!): Card
+    updateCardArchived(_id: String!, archived: Boolean): Card
     deleteCard(_id: String!): Card
+    emptyTrash(archived: Boolean): Card
     # updateCardPos(_id: String!, pos: Float): Card
     # addChecklistToCard(_id: String!): Card
     # addLabelToCard(_id: String!): Card

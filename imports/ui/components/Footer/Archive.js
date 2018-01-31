@@ -5,10 +5,9 @@ import gql from "graphql-tag";
 import Icon from "../Base/Icon";
 
 const updateCardArchived = gql`
-    mutation updateCardArchived($_id: String!, $archived: Boolean!) {
+    mutation updateCardArchived($_id: String!, $archived: Boolean) {
         updateCardArchived(_id: $_id, archived: $archived) {
             _id
-            archived
         }
     }
 `;
@@ -19,8 +18,8 @@ class Archive extends Component {
         this.props
             .updateCardArchived({
                 variables: {
-                    _id: this.props.currentStore.cur.cardId,
-                    archived: true
+                    archived: true,
+                    _id: this.props.currentStore.cur.cardId
                 }
             })
             .catch(error => {
@@ -34,7 +33,7 @@ class Archive extends Component {
             <button
                 type="button"
                 className="btn btn-sm footer-button"
-                onClick={() => this.updateCardArchived()}
+                onClick={this.updateCardArchived}
             >
                 {icon}
             </button>
@@ -64,3 +63,4 @@ export default graphql(updateCardArchived, {
         refetchQueries: ["listQuery"]
     }
 })(Archive);
+

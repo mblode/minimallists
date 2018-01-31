@@ -3,6 +3,9 @@ import { Checklists } from "../checklists/checklists";
 
 export default {
     Query: {
+        card(obj, { _id }, { userId }) {
+            return Cards.findOne(_id);
+        },
         cards(obj, { completed, archived }, { userId }) {
             return Cards.find({
                 userId,
@@ -58,7 +61,7 @@ export default {
             });
             return Cards.findOne(cardId);
         },
-        updateCardArchived(obj, { _id, archived }, { userId }) {
+        updateCardArchived(obj, { archived, _id }, { userId }) {
             const cardId = Cards.update(_id, {
                 $set: {
                     archived
@@ -72,13 +75,8 @@ export default {
             });
             return Cards.findOne(cardId);
         },
-        updateCardArchived(obj, { pos, _id }, { userId }) {
-            const cardId = Cards.update(_id, {
-                $set: {
-                    pos
-                }
-            });
-            return Cards.findOne(cardId);
+        emptyTrash(obj, { archived }, { userId }) {
+            return Cards.remove({ archived });
         }
     }
 };

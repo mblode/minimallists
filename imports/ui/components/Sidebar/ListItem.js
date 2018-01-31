@@ -69,10 +69,6 @@ class ListItem extends Component {
                         <span className="sidebar-nav-length">
                             {this.props.length}
                         </span>
-
-                        {/* <button type="button" onClick={this.deleteList}>
-                            X
-                        </button> */}
                     </div>
                 </NavLink>
             </div>

@@ -5,7 +5,27 @@ import gql from "graphql-tag";
 import CardSortable from "../components/Card/CardSortable";
 import Icon from "../components/Base/Icon";
 
+const emptyTrash = gql`
+    mutation emptyTrash($archived: Boolean) {
+        emptyTrash(archived: $archived) {
+            archived
+        }
+    }
+`;
+
 class Trash extends Component {
+    emptyTrash = () => {
+        this.props
+            .emptyTrash({
+                variables: {
+                    archived: true
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
+
     render() {
         const { data } = this.props;
         if (data.loading) return null;
@@ -17,7 +37,10 @@ class Trash extends Component {
                     Trash
                 </h3>
 
-                <button className="ml-3 mb-3 btn btn-primary btn-sm">
+                <button
+                    className="ml-3 mb-3 btn btn-primary btn-sm"
+                    onClick={this.emptyTrash}
+                >
                     Empty trash
                 </button>
 
@@ -29,7 +52,7 @@ class Trash extends Component {
 
 const listQuery = gql`
     {
-        cards(completed: true, archived: true) {
+        cards(completed: false, archived: true) {
             _id
             name
             completed
@@ -43,4 +66,12 @@ const listQuery = gql`
     }
 `;
 
-export default compose(graphql(listQuery))(Trash);
+export default compose(
+    graphql(listQuery),
+    graphql(emptyTrash, {
+        name: "emptyTrash",
+        options: {
+            refetchQueries: ["listQuery"]
+        }
+    })
+)(Trash);
