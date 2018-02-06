@@ -11,7 +11,7 @@ type Checklist {
 
 extend type Mutation {
     createChecklist(name: String!, cardId: String!): Checklist
-    updateChecklist(_id: String!, name: String!): Checklist
+    updateChecklistName(_id: String!, name: String!): Checklist
     updateChecklistCompleted(_id: String!, completed: Boolean): Checklist
     deleteChecklist(_id: String!): Checklist
     # updateChecklistState(_id: String!, completed: Boolean): Checklist

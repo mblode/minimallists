@@ -1,6 +1,6 @@
 type Query {
     card(_id: String): Card
-    cards(completed: Boolean, archived: Boolean): [Card]
+    cards(completed: String, archived: String): [Card]
 }
 
 type Card {

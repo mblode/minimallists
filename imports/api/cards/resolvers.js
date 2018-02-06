@@ -4,16 +4,30 @@ import { Checklists } from "../checklists/checklists";
 export default {
     Query: {
         card(obj, { _id }, { userId }) {
-            return Cards.findOne(_id);
+            return Cards.findOne(userId, _id);
         },
         cards(obj, { completed, archived }, { userId }) {
-            return Cards.find({
-                userId,
-                $and: [
-                    { completed: { $eq: completed } },
-                    { archived: { $eq: archived } }
-                ]
-            }).fetch();
+            if (completed && archived) {
+                return Cards.find({
+                    userId,
+                    $and: [
+                        { completed: { $eq: JSON.parse(completed) } },
+                        { archived: { $eq: JSON.parse(archived) } }
+                    ]
+                }).fetch();
+            } else if (completed) {
+                return Cards.find({
+                    userId,
+                    completed: { $eq: JSON.parse(completed) }
+                }).fetch();
+            } else if (archived) {
+                return Cards.find({
+                    userId,
+                    archived: { $eq: JSON.parse(archived) }
+                }).fetch();
+            } else {
+                return Cards.find({ userId }).fetch();
+            }
         }
     },
 
@@ -37,46 +51,49 @@ export default {
             });
             return Cards.findOne(res);
         },
-        updateCard(obj, { name, _id }, { userId }) {
-            const cardId = Cards.update(_id, {
+        updateCard(obj, { name, _id }) {
+            const res = Cards.update(_id, {
                 $set: {
                     name
                 }
             });
-            return Cards.findOne(cardId);
+            return Cards.findOne(res);
         },
-        updateCardCompleted(obj, { completed, _id }, { userId }) {
-            const cardId = Cards.update(_id, {
+        updateCardCompleted(obj, { completed, _id }) {
+            const res = Cards.update(_id, {
                 $set: {
                     completed
                 }
             });
-            return Cards.findOne(cardId);
+            return Cards.findOne(res);
         },
-        updateCardNotes(obj, { notes, _id }, { userId }) {
-            const cardId = Cards.update(_id, {
+        updateCardNotes(obj, { notes, _id }) {
+            const res = Cards.update(_id, {
                 $set: {
                     notes
                 }
             });
-            return Cards.findOne(cardId);
+            return Cards.findOne(res);
         },
-        updateCardArchived(obj, { archived, _id }, { userId }) {
-            const cardId = Cards.update(_id, {
+        updateCardArchived(obj, { archived, _id }) {
+            const res = Cards.update(_id, {
                 $set: {
                     archived
                 }
             });
-            return Cards.findOne(cardId);
+            return Cards.findOne(res);
         },
-        deleteCard(obj, { _id }, { userId }) {
-            const cardId = Cards.remove({
+        deleteCard(obj, { _id }) {
+            const res = Cards.remove({
                 _id
             });
-            return Cards.findOne(cardId);
+            return Cards.findOne(res);
         },
-        emptyTrash(obj, { archived }, { userId }) {
-            return Cards.remove({ archived });
+        emptyTrash(obj, args, { userId }) {
+            return Cards.remove({
+                userId,
+                archived: { $eq: true }
+            });
         }
     }
 };

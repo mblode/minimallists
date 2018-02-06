@@ -157,7 +157,7 @@ body {
     display: flex;
     align-items: center;
 
-    svg {
+    > svg {
         margin-right: 0.5rem;
     }
 }
@@ -238,4 +238,20 @@ body {
     margin-left: 1.45rem;
     position: relative;
     top: -0.3rem;
+}
+
+.checklist-item-input {
+    background: transparent;
+    outline: none;
+    caret-color: #07c;
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: calc(100% - 2rem);
+}
+
+.checklist-item-check {
+    margin-right: 0.5rem;
+    top: -1px;
+    position: relative;
 }

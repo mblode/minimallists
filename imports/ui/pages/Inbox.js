@@ -6,7 +6,6 @@ import CurrentStore from "../stores/CurrentStore";
 
 import CardSortable from "../components/Card/CardSortable";
 import Icon from "../components/Base/Icon";
-import Popover from "../components/Popover/Popover";
 
 class Inbox extends Component {
     render() {
@@ -26,7 +25,7 @@ class Inbox extends Component {
 
 const listQuery = gql`
     query listQuery {
-        cards(completed: false, archived: false) {
+        cards(completed: "false", archived: "false") {
             _id
             name
             completed

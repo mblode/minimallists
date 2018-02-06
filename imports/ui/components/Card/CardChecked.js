@@ -11,20 +11,42 @@ const updateCardCompleted = gql`
     }
 `;
 
+
 class CardChecked extends Component {
     updateCard = () => {
-        setTimeout(() => {
-            this.props
-                .updateCardCompleted({
-                    variables: {
-                        _id: this.props.card._id,
-                        completed: !this.props.card.completed
-                    }
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        }, 3000);
+        let checkedDelay;
+
+        // if (this.props.card.completed == true) {
+            // checkedDelay = setTimeout(() => {
+                this.props
+                    .updateCardCompleted({
+                        variables: {
+                            _id: this.props.card._id,
+                            completed: true
+                        }
+                    })
+                    .then(error => {
+                        // CurrentStore.currentActive("close");
+                        console.log("bye")
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            // }, 3000);
+        // } else {
+        //     clearTimeout(checkedDelay);
+
+        //     this.props
+        //         .updateCardCompleted({
+        //             variables: {
+        //                 _id: this.props.card._id,
+        //                 completed: false
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.log(error);
+        //         });
+        // }
     };
 
     render() {

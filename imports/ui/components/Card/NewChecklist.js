@@ -17,7 +17,7 @@ class NewChecklist extends Component {
         this.props
             .createChecklist({
                 variables: {
-                    name: "sdsdsdsd",
+                    name: "",
                     cardId: this.props.cardId
                 }
             })

@@ -52,7 +52,7 @@ class Trash extends Component {
 
 const listQuery = gql`
     {
-        cards(completed: false, archived: true) {
+        cards(archived: "true") {
             _id
             name
             completed

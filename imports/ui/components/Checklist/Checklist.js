@@ -5,10 +5,9 @@ import gql from "graphql-tag";
 
 const DragHandle = SortableHandle(() => <span>::</span>);
 
-const updateChecklist = gql`
-    mutation updateChecklist($name: String, $_id: String!) {
-        updateChecklist(name: $name, _id: $_id) {
-            name
+const updateChecklistName = gql`
+    mutation updateChecklistName($name: String!, $_id: String!) {
+        updateChecklistName(name: $name, _id: $_id) {
             _id
         }
     }
@@ -37,9 +36,9 @@ class Checklist extends Component {
             });
     };
 
-    updateChecklist = e => {
+    updateChecklistName = e => {
         this.props
-            .updateChecklist({
+            .updateChecklistName({
                 variables: {
                     name: this.checklistName.value,
                     _id: this.props.checklist._id
@@ -67,7 +66,7 @@ class Checklist extends Component {
                         type="text"
                         placeholder="New Checklist"
                         ref={input => (this.checklistName = input)}
-                        onChange={this.updateChecklist}
+                        onChange={this.updateChecklistName}
                         value={checklist.name}
                         className="checklist-item-input"
                     />
@@ -86,8 +85,8 @@ export default compose(
             refetchQueries: ["listQuery"]
         }
     }),
-    graphql(updateChecklist, {
-        name: "updateChecklist",
+    graphql(updateChecklistName, {
+        name: "updateChecklistName",
         options: {
             refetchQueries: ["listQuery"]
         }

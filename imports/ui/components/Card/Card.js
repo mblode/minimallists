@@ -54,7 +54,7 @@ class Card extends Component {
         let cardClass = "";
         let checklistIcon = null;
 
-        if (card.checklists) {
+        if (card.checklists.length > 0) {
             checklistIcon = (
                 <span className="card-item-checklist-icon">
                     <Icon name="list" color="#6c757d" size="16px" />

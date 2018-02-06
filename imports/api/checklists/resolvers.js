@@ -10,27 +10,27 @@ export default {
             });
             return Checklists.findOne(res);
         },
-        updateChecklist(obj, { name, _id }, { userId }) {
-            const checklistId = Checklists.update(_id, {
+        updateChecklistName(obj, { name, _id }, { userId }) {
+            const res = Checklists.update(_id, {
                 $set: {
                     name
                 }
             });
-            return Checklists.findOne(checklistId);
+            return Checklists.findOne(res);
         },
         updateChecklistCompleted(obj, { completed, _id }, { userId }) {
-            const checklistId = Checklists.update(_id, {
+            const res = Checklists.update(_id, {
                 $set: {
                     completed
                 }
             });
-            return Checklists.findOne(checklistId);
+            return Checklists.findOne(res);
         },
         deleteChecklist(obj, { _id }, { userId }) {
-            const checklistId = Checklists.remove({
+            const res = Checklists.remove({
                 _id
             });
-            return Checklists.findOne(checklistId);
+            return Checklists.findOne(res);
         }
     }
 };

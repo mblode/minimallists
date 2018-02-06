@@ -6,7 +6,7 @@ import CurrentStore from "../stores/CurrentStore";
 
 import CardSortable from "../components/Card/CardSortable";
 import Icon from "../components/Base/Icon";
-import Popover from "../components/Popover/Popover";
+import DeleteProject from "../components/Popover/DeleteProject";
 
 class Project extends Component {
     updateProject = () => {
@@ -40,6 +40,7 @@ class Project extends Component {
                         className="project-title"
                         value={project.name}
                     />
+                    <DeleteProject currentStore={CurrentStore} />
                 </div>
                 <CardSortable cards={project.cards} />
             </div>

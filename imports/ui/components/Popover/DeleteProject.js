@@ -5,15 +5,15 @@ import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 import Icon from "../Base/Icon";
 
-const deleteList = gql`
-    mutation deleteList($_id: String!) {
-        deleteList(_id: $_id) {
+const deleteProject = gql`
+    mutation deleteProject($_id: String!) {
+        deleteProject(_id: $_id) {
             _id
         }
     }
 `;
 
-class Popover extends Component {
+class DeleteProject extends Component {
     constructor(props) {
         super(props);
         this.state = { active: false, fireRedirect: false };
@@ -27,11 +27,11 @@ class Popover extends Component {
         this.setState({ active: false });
     };
 
-    deleteList = () => {
+    deleteProject = () => {
         this.props
-            .deleteList({
+            .deleteProject({
                 variables: {
-                    _id: this.props.currentStore.cur.listId
+                    _id: this.props.currentStore.cur.projectId
                 }
             })
             .then(this.setState({ fireRedirect: true }))
@@ -47,7 +47,7 @@ class Popover extends Component {
             <Manager>
                 <Target>
                     <button
-                        className="btn"
+                        className="btn btn-link"
                         onFocus={() => this.openPopover()}
                         onBlur={() => this.closePopover()}
                     >
@@ -68,9 +68,9 @@ class Popover extends Component {
                 >
                     <div className="popover-body">
                         <button
-                            className="btn"
+                            className="btn btn-link"
                             type="button"
-                            onClick={this.deleteList}
+                            onClick={this.deleteProject}
                         >
                             X
                         </button>
@@ -84,9 +84,9 @@ class Popover extends Component {
     }
 }
 
-export default graphql(deleteList, {
-    name: "deleteList",
+export default graphql(deleteProject, {
+    name: "deleteProject",
     options: {
         refetchQueries: ["sidebarQuery"]
     }
-})(Popover);
+})(DeleteProject);
