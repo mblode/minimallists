@@ -13,7 +13,6 @@ const createChecklist = gql`
 
 class NewChecklist extends Component {
     createChecklist = () => {
-        console.log("clicked");
         this.props
             .createChecklist({
                 variables: {

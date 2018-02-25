@@ -47,7 +47,7 @@ class NewList extends Component {
 
     render() {
         return (
-            <div className="col-12 col-md-3 col-xl-2 sidebar-footer">
+            <div className="col-12 col-md-3 col-xl-3 sidebar-footer">
                 <button
                     className="btn btn-sm btn-flex sidebar-footer-btn"
                     onClick={() => this.newList()}

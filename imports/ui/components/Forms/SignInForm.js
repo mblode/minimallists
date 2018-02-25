@@ -42,25 +42,28 @@ class SignInForm extends Component {
                         </p>
                     </div>
 
-                    <div className="form-label-group">
-                        <input
-                            className="form-control"
-                            type="email"
-                            placeholder="Email"
-                            required
-                            ref={input => (this.email = input)}
-                        />
+                    <div className="form-labels">
+                        <div className="form-label-group">
+                            <input
+                                className="form-control"
+                                type="email"
+                                placeholder="Email address"
+                                required
+                                ref={input => (this.email = input)}
+                            />
+                        </div>
+
+                        <div className="form-label-group">
+                            <input
+                                className="form-control"
+                                type="password"
+                                placeholder="Password"
+                                required
+                                ref={input => (this.password = input)}
+                            />
+                        </div>
                     </div>
 
-                    <div className="form-label-group">
-                        <input
-                            className="form-control"
-                            type="password"
-                            placeholder="Password"
-                            required
-                            ref={input => (this.password = input)}
-                        />
-                    </div>
 
                     <button
                         className="btn btn-lg btn-primary btn-block mt-3"
